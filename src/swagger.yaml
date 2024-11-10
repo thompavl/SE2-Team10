@@ -698,11 +698,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/OperationResponse'
         404:
-          description: post not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/responses/NotFound'
+          $ref: '#/components/responses/NotFound'
         
   /post/{postID}/react:
     post:
