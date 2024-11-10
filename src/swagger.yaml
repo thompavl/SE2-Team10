@@ -1,0 +1,1132 @@
+openapi: 3.0.3
+info:
+  title: Wavelength Music Entities - OpenAPI 3.0
+  description: This is Wavelength's API containing all endpoints regarding the app's Music Entities
+  contact:
+    name: Spyridon Baltsas
+    email: mspyrido@ece.auth.gr
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://api.example.com:1337/api/v1
+tags:
+  - name: music-entity
+    description: Endpoints about music entity resources
+  - name: event
+    description: Endpoints about event resources
+  - name: user
+    description: Endpoints about the user resource
+  - name: post
+    description: Endpoints about the post resource
+security:
+  - ApiKeyAuth: []
+paths:
+  /music-entity:
+    get:
+      tags:
+        - music-entity
+      description: Get a list of music entities based on search parameters
+      operationId: getMusicEntities
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Date'
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - artist
+              - song
+              - playlist
+              - album
+        - name: keywords
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Music Entities found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MusicEntityPack'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /music-entity/{id}:
+    get:
+      tags:
+        - music-entity
+      description: Get a specific music entity by ID. Return pack's arrays contain only one item.
+      operationId: getMusicEntitybyId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entity-pack:
+                    $ref: '#/components/schemas/MusicEntityPack'
+                  return-type:
+                    type: string
+                    description: The type of the entity returned.
+                    enum:
+                      - song
+                      - album
+                      - artist
+                      - playlist
+  /user:
+    get:
+      tags:
+        - user
+      summary: Get user profile
+      description: This can only be done by the logged in user.
+      operationId: viewProfile
+      parameters:
+        - name: userID
+          in: query
+          required: true
+          description: userID for whom the profile should be returned
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags:
+        - user
+      summary: Update user
+      operationId: updateProfile
+      parameters:
+        - name: userID
+          in: query
+          required: true
+          description: ID of user
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      operationId: deleteProfile
+      parameters:
+        - name: userID
+          required: true
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        404:
+          $ref: '#/components/responses/NotFound'
+                
+        401:
+          $ref: '#/components/responses/Unauthorized'
+          
+  /user/{userID}/rating:
+    get:
+      tags:
+        - event
+      summary: Returns a collection of matching ratings
+      description: This (GET) endpoint returns an array of ratings. By default this returns a number of ratings that belong to user (userID), from newest to oldest. If the optional parameter, ratingID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the rating that matches ratingID.
+      operationId: getRating
+      parameters:
+        - name: userID
+          in: path
+          description: The userID, whose rating we want to access
+          required: true
+          schema:
+            type: string
+        - name: ratingID
+          in: query
+          description: The ratingID
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - event
+      summary: Creates a rating
+      description: This can only be done by the logged in user.
+      operationId: postRating
+      parameters:
+        - name: userID
+          in: path
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/share:
+    get:
+      tags:
+        - event
+      summary: Returns a collection of matching shares
+      description: This (GET) endpoint returns an array of shares. By default this returns a number of shares that belong to user (userID), from newest to oldest. If the optional parameter, shareID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the share that matches shareID.
+      operationId: getShare
+      parameters:
+        - name: userID
+          in: path
+          description: The userID, whose rating we want to access
+          required: true
+          schema:
+            type: string
+        - name: shareID
+          in: query
+          description: The shareID
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Share'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - event
+      summary: Creates a share
+      description: This can only be done by the logged in user.
+      operationId: postShare
+      parameters:
+        - name: userID
+          in: path
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Share'
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/import:
+    get:
+      tags:
+        - event
+      summary: Returns a collection of matching imports
+      description: This (GET) endpoint returns an array of imports. By default this returns a number of imports that belong to user (userID), from newest to oldest. If the optional parameter, importID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the import that matches importID.
+      operationId: getImport
+      parameters:
+        - name: userID
+          in: path
+          description: The userID, whose import we want to access
+          required: true
+          schema:
+            type: string
+        - name: importID
+          in: query
+          description: The importID
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Import'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - event
+      summary: Creates a import
+      description: This can only be done by the logged in user.
+      operationId: postImport
+      parameters:
+        - name: userID
+          in: path
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Import'
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/soundbite:
+    get:
+      tags:
+        - event
+      summary: Returns a collection of matching soundbites
+      description: This (GET) endpoint returns an array of soundbites. By default this returns a number of soundbites that belong to user (userID), from newest to oldest. If the optional parameter, soundbiteID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the soundbite that matches soundbiteID.
+      operationId: getSoundbite
+      parameters:
+        - name: userID
+          in: path
+          description: The userID, whose soundbite we want to access
+          required: true
+          schema:
+            type: string
+        - name: soundbiteID
+          in: query
+          description: The soundbiteID
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Soundbite'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - event
+      summary: Creates a soundbite
+      description: This can only be done by the logged in user.
+      operationId: postSoundbite
+      parameters:
+        - name: userID
+          in: path
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Soundbite'
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/external-link/{platform}:
+    post:
+      tags:
+        - user
+      description: Complete authentication using the aquired authentication token
+      operationId: completeAuthentication
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          description: ID of the user's Wavelength account
+          schema:
+            type: integer
+            format: int64
+        - name: platform
+          in: path
+          required: true
+          description: Specific platform chosen
+          schema:
+            type: string
+            enum:
+              - spotify
+              - soundcloud
+              - apple-music
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                auth-token:
+                  type: string
+                  description: The authentication toke provided by the streaming service
+              required:
+                - code
+      responses:
+        '200':
+          description: External Service successfully linked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Linking was successful
+  /user/{userID}/external-creations/{platform}:
+    get:
+      tags:
+        - user
+      description: Retrieve the users creations from the specific platform
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          description: ID of the user's Wavelength account
+          schema:
+            type: integer
+            format: int64
+        - name: platform
+          in: path
+          required: true
+          description: Specific platform chosen
+          schema:
+            type: string
+            enum:
+              - spotify
+              - soundcloud
+              - apple-music
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+  /feed/{userID}:
+    get:
+      tags:
+        - post
+      summary: Get user's feed
+      operationId: getUserFeed
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          description: User's identification number in system.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Feed found sucessfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /get-recommended-users/{userID}:
+    get:
+      tags:
+        - user
+      summary: Get recommended users for the specific user
+      operationId: getRecommended
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          description: User's identification number in system.
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Recommended users found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIDs'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/add-follower:
+    post:
+      tags:
+        - user
+      summary: Add a new follower for a user
+      operationId: addUserFollower
+      parameters:
+        - name: userID
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: followerID
+          in: query
+          description: The ID of the follower
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /user/{userID}/followers:
+    get:
+      tags:
+        - user
+      summary: Returns the followers of a user
+      operationId: getUserFollowers
+      parameters:
+        - name: userID
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIDs'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/following:
+    get:
+      tags:
+        - user
+      summary: Returns the followings of a user
+      operationId: getUserFollowing
+      parameters:
+        - name: userID
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIDs'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user/{userID}/posts:
+    get:
+      tags:
+        - post
+      summary: Gets a user's posts
+      operationId: getUserPosts
+      parameters:
+        - name: userID
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /post:
+    get:
+      tags:
+        - post
+      summary: Gets a post by ID
+      operationId: getPost
+      parameters:
+        - name: postID
+          in: query
+          description: ID of the post
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          $ref: '#/components/schemas/Post'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - post
+      summary: Uploads a post
+      operationId: addUserPost
+      requestBody:
+        description: Add a post for the user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      tags:
+        - post
+      summary: Delete a post
+      operationId: deleteUserPost
+      parameters:
+        - name: postID
+          schema:
+            type: integer
+            format: int64
+          required: true
+          in: query
+      responses:
+        200:
+          description: successfuly operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        404:
+          description: post not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/NotFound'
+        
+  /post/{postID}/react:
+    post:
+      tags:
+        - post
+      summary: Adds a reaction to a post
+      operationId: react
+      parameters:
+        - name: postID
+          in: path
+          description: ID of the post
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: The reaction to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reaction'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /post/{postID}/comment:
+    post:
+      tags:
+        - post
+      summary: Adds a comment to a post
+      operationId: comment
+      parameters:
+        - name: postID
+          in: path
+          description: ID of the post
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: The comment to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Wavelength-Api-Key
+  responses:
+    Unauthorized:
+      description: User is unauthorized, you need an API key to access this resource!
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnauthorizedMessage'
+      headers:
+        X_Wavelength_Api_Key:
+          schema:
+            type: string
+    BadRequest:
+      description: Resource not found
+      content:
+        appplication/json:
+          schema:
+            $ref: '#/components/schemas/BadRequest'
+    NotFound:
+      description: Resource not found
+      content:
+        appplication/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundMessage'
+  schemas:
+    UnauthorizedMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          default: You are unauthorized! You need an api key to log in
+        code:
+          type: integer
+          default: 401
+      required:
+        - message
+        - code
+    NotFoundMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          default: Your requested resource is nowhere to be found! Perhaps try searching something else?
+        code:
+          type: integer
+          default: 404
+      required:
+        - message
+        - code
+    BadRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          default: The request was malformed. Try modifying your input.
+        code:
+          type: integer
+          default: 400
+      required:
+        - message
+        - code
+    Feed:
+      type: object
+      properties:
+        lastUpdated:
+          type: integer
+          format: int64
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+    UserIDs:
+      type: array
+      items:
+        type: integer
+        format: int64
+    Post:
+      type: object
+      properties:
+        userID:
+          type: integer
+          format: int64
+        postID:
+          type: integer
+          format: int64
+        eventID:
+          type: integer
+          format: int64
+        eventType:
+          type: string
+          enum:
+            - rating
+            - soundbite
+            - share
+            - import
+        postReactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reaction'
+        postComments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+    Reaction:
+      type: object
+      properties:
+        authorID:
+          type: integer
+          format: int64
+        value:
+          type: string
+          enum:
+            - laugh
+            - cry
+            - angry
+            - love
+    Comment:
+      type: object
+      properties:
+        authorID:
+          type: integer
+          format: int64
+        content:
+          type: string
+    MusicEntityPack:
+      type: object
+      description: Object that contains a mix of all possible music entity arrays
+      properties:
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+        albums:
+          type: array
+          items:
+            $ref: '#/components/schemas/Album'
+        playlists:
+          type: array
+          items:
+            $ref: '#/components/schemas/Playlist'
+        artists:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artist'
+    Song:
+      type: object
+      properties:
+        name:
+          type: string
+          example: To agalma
+        duration:
+          type: integer
+          format: minutes-seconds
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        album-id:
+          $ref: '#/components/schemas/EntityId'
+    Album:
+      type: object
+      properties:
+        name:
+          type: string
+          example: The Wall
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        genre:
+          $ref: '#/components/schemas/Genre'
+        songs-ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+        image:
+          type: string
+          format: byte
+        date:
+          $ref: '#/components/schemas/Date'
+        artists-ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+    Artist:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Pink Floyd
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        albums:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+        image:
+          type: string
+          format: byte
+    Playlist:
+      type: object
+      properties:
+        name:
+          type: string
+          example: My awesome playlist
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        creator-id:
+          type: integer
+          format: int64
+          description: ID of the user who created this playlist
+        date:
+          $ref: '#/components/schemas/Date'
+    Genre:
+      type: string
+      enum:
+        - rap
+        - rock
+        - laiko
+        - classic
+        - others
+        - trash
+    Creation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: integer
+          format: int64
+          example: 198772
+        duration:
+          type: integer
+          format: seconds
+          example: 300
+        image:
+          type: string
+          format: byte
+        music-entity-pack:
+          $ref: '#/components/schemas/MusicEntityPack'
+        genre:
+          $ref: '#/components/schemas/Genre'
+    Soundbite:
+      type: object
+      properties:
+        soundBiteID:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        song:
+          $ref: '#/components/schemas/Song'
+        tStart:
+          type: integer
+          description: Starting time in seconds
+          example: 9
+        tEnd:
+          type: integer
+          description: End time in seconds
+          example: 9
+    Rating:
+      type: object
+      properties:
+        ratingId:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        musicEntity:
+          $ref: '#/components/schemas/MusicEntityPack'
+        rating:
+          type: integer
+          example: 9
+        text:
+          type: string
+          example: I really liked this one
+    Share:
+      type: object
+      properties:
+        shareID:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        musicEntity:
+          $ref: '#/components/schemas/MusicEntityPack'
+        text:
+          type: string
+          example: I really liked this one
+    Import:
+      type: object
+      properties:
+        importID:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        platform:
+          $ref: '#/components/schemas/Platform'
+        creation:
+          $ref: '#/components/schemas/Creation'
+        text:
+          type: string
+          example: Enjoy my newest album
+    Platform:
+      type: string
+      enum:
+        - spotify
+        - soundcloud
+        - apple-music
+    Date:
+      type: string
+      format: POSIX-default
+      example: mm/dd/yy hh:mm:ss
+    EntityId:
+      type: string
+      description: string type id that is unique for each music entity
+      example: moneypinkfloyd102562
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        profile_picture:
+          type: string
+          format: byte
+        about_me:
+          type: string
+          example: I love rock'n roll so put another dime in the jukebox
+        service_token_pairs:
+          type: string
+          example: null
+    OperationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: Successfully completed API operation
