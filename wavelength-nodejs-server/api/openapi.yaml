@@ -11,7 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-- url: http://api.example.com:1337/api/v1
+- url: http://localhost:8080/api/v1
 security:
 - ApiKeyAuth: []
 tags:
@@ -1399,7 +1399,7 @@ components:
           example: To agalma
         duration:
           type: integer
-          format: minutes-seconds
+          format: int32
         entity-id:
           $ref: '#/components/schemas/EntityId'
         album-id:
@@ -1514,7 +1514,7 @@ components:
           example: 198772
         duration:
           type: integer
-          format: seconds
+          format: int32
           example: 300
         image:
           type: string
@@ -1885,8 +1885,8 @@ components:
       - apple-music
     Date:
       type: string
-      format: POSIX-default
-      example: mm/dd/yy hh:mm:ss
+      format: date-time
+      example: yyyy-mm-ddThh:mm:ssZ
     EntityId:
       type: string
       description: string type id that is unique for each music entity
