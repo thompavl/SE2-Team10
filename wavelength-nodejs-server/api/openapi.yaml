@@ -1,0 +1,2047 @@
+openapi: 3.0.3
+info:
+  title: Wavelength Music Entities - OpenAPI 3.0
+  description: This is Wavelength's API containing all endpoints regarding the app's
+    Music Entities
+  contact:
+    name: Spyridon Baltsas
+    email: mspyrido@ece.auth.gr
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/api/v1
+security:
+- ApiKeyAuth: []
+tags:
+- name: music-entity
+  description: Endpoints about music entity resources
+- name: event
+  description: Endpoints about event resources
+- name: user
+  description: Endpoints about the user resource
+- name: post
+  description: Endpoints about the post resource
+paths:
+  /music-entity:
+    get:
+      tags:
+      - music-entity
+      description: Get a list of music entities based on search parameters
+      operationId: getMusicEntities
+      parameters:
+      - name: name
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/Date'
+      - name: type
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - artist
+          - song
+          - playlist
+          - album
+      - name: keywords
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          description: Music Entities found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MusicEntityPack'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: MusicEntity
+  /music-entity/{id}:
+    get:
+      tags:
+      - music-entity
+      description: Get a specific music entity by ID. Return pack's arrays contain
+        only one item.
+      operationId: getMusicEntitybyId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      x-swagger-router-controller: MusicEntity
+  /user:
+    get:
+      tags:
+      - user
+      summary: Get user profile
+      description: This can only be done by the logged in user.
+      operationId: viewProfile
+      parameters:
+      - name: userID
+        in: query
+        description: userID for whom the profile should be returned
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: User
+    put:
+      tags:
+      - user
+      summary: Update user
+      operationId: updateProfile
+      parameters:
+      - name: userID
+        in: query
+        description: ID of user
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: User
+    delete:
+      tags:
+      - user
+      summary: Delete user
+      operationId: deleteProfile
+      parameters:
+      - name: userID
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: User
+  /user/{userID}/rating:
+    get:
+      tags:
+      - event
+      summary: Returns a collection of matching ratings
+      description: "This (GET) endpoint returns an array of ratings. By default this\
+        \ returns a number of ratings that belong to user (userID), from newest to\
+        \ oldest. If the optional parameter, ratingID, is also supplied then this\
+        \ list gets filtered bassed on that parameter resulting in an empty list in\
+        \ the case of no match, or to a single-entry array containing the rating that\
+        \ matches ratingID."
+      operationId: getRating
+      parameters:
+      - name: userID
+        in: path
+        description: "The userID, whose rating we want to access"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: ratingID
+        in: query
+        description: The ratingID
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Rating'
+                x-content-type: application/json
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: Event
+    post:
+      tags:
+      - event
+      summary: Creates a rating
+      description: This can only be done by the logged in user.
+      operationId: postRating
+      parameters:
+      - name: userID
+        in: path
+        description: The user name for login
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+      responses:
+        "200":
+          description: Successful operation
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Event
+  /user/{userID}/share:
+    get:
+      tags:
+      - event
+      summary: Returns a collection of matching shares
+      description: "This (GET) endpoint returns an array of shares. By default this\
+        \ returns a number of shares that belong to user (userID), from newest to\
+        \ oldest. If the optional parameter, shareID, is also supplied then this list\
+        \ gets filtered bassed on that parameter resulting in an empty list in the\
+        \ case of no match, or to a single-entry array containing the share that matches\
+        \ shareID."
+      operationId: getShare
+      parameters:
+      - name: userID
+        in: path
+        description: "The userID, whose rating we want to access"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: shareID
+        in: query
+        description: The shareID
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Share'
+                x-content-type: application/json
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: Event
+    post:
+      tags:
+      - event
+      summary: Creates a share
+      description: This can only be done by the logged in user.
+      operationId: postShare
+      parameters:
+      - name: userID
+        in: path
+        description: The user name for login
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Share'
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Event
+  /user/{userID}/import:
+    get:
+      tags:
+      - event
+      summary: Returns a collection of matching imports
+      description: "This (GET) endpoint returns an array of imports. By default this\
+        \ returns a number of imports that belong to user (userID), from newest to\
+        \ oldest. If the optional parameter, importID, is also supplied then this\
+        \ list gets filtered bassed on that parameter resulting in an empty list in\
+        \ the case of no match, or to a single-entry array containing the import that\
+        \ matches importID."
+      operationId: getImport
+      parameters:
+      - name: userID
+        in: path
+        description: "The userID, whose import we want to access"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: importID
+        in: query
+        description: The importID
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Import'
+                x-content-type: application/json
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: Event
+    post:
+      tags:
+      - event
+      summary: Creates a import
+      description: This can only be done by the logged in user.
+      operationId: postImport
+      parameters:
+      - name: userID
+        in: path
+        description: The user name for login
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Import'
+      responses:
+        "200":
+          description: Successful operation
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Event
+  /user/{userID}/soundbite:
+    get:
+      tags:
+      - event
+      summary: Returns a collection of matching soundbites
+      description: "This (GET) endpoint returns an array of soundbites. By default\
+        \ this returns a number of soundbites that belong to user (userID), from newest\
+        \ to oldest. If the optional parameter, soundbiteID, is also supplied then\
+        \ this list gets filtered bassed on that parameter resulting in an empty list\
+        \ in the case of no match, or to a single-entry array containing the soundbite\
+        \ that matches soundbiteID."
+      operationId: getSoundbite
+      parameters:
+      - name: userID
+        in: path
+        description: "The userID, whose soundbite we want to access"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      - name: soundbiteID
+        in: query
+        description: The soundbiteID
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Soundbite'
+                x-content-type: application/json
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: Event
+    post:
+      tags:
+      - event
+      summary: Creates a soundbite
+      description: This can only be done by the logged in user.
+      operationId: postSoundbite
+      parameters:
+      - name: userID
+        in: path
+        description: The user name for login
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Soundbite'
+      responses:
+        "200":
+          description: Successful operation
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Event
+  /user/{userID}/external-link/{platform}:
+    post:
+      tags:
+      - user
+      description: Complete authentication using the aquired authentication token
+      operationId: completeAuthentication
+      parameters:
+      - name: userID
+        in: path
+        description: ID of the user's Wavelength account
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: platform
+        in: path
+        description: Specific platform chosen
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          enum:
+          - spotify
+          - soundcloud
+          - apple-music
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/externallink_platform_body'
+        required: true
+      responses:
+        "200":
+          description: External Service successfully linked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+      x-swagger-router-controller: User
+  /user/{userID}/external-creations/{platform}:
+    get:
+      tags:
+      - user
+      description: Retrieve the users creations from the specific platform
+      operationId: userUserIDExternal_creationsPlatformGET
+      parameters:
+      - name: userID
+        in: path
+        description: ID of the user's Wavelength account
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: platform
+        in: path
+        description: Specific platform chosen
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          enum:
+          - spotify
+          - soundcloud
+          - apple-music
+      responses:
+        "200":
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+      x-swagger-router-controller: User
+  /feed/{userID}:
+    get:
+      tags:
+      - post
+      summary: Get user's feed
+      operationId: getUserFeed
+      parameters:
+      - name: userID
+        in: path
+        description: User's identification number in system.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Feed found sucessfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feed'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Post
+  /get-recommended-users/{userID}:
+    get:
+      tags:
+      - user
+      summary: Get recommended users for the specific user
+      operationId: getRecommended
+      parameters:
+      - name: userID
+        in: path
+        description: User's identification number in system.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Recommended users found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIDs'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: User
+  /user/{userID}/add-follower:
+    post:
+      tags:
+      - user
+      summary: Add a new follower for a user
+      operationId: addUserFollower
+      parameters:
+      - name: userID
+        in: path
+        description: ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      - name: followerID
+        in: query
+        description: The ID of the follower
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: User
+  /user/{userID}/followers:
+    get:
+      tags:
+      - user
+      summary: Returns the followers of a user
+      operationId: getUserFollowers
+      parameters:
+      - name: userID
+        in: path
+        description: ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIDs'
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: User
+  /user/{userID}/following:
+    get:
+      tags:
+      - user
+      summary: Returns the followings of a user
+      operationId: getUserFollowing
+      parameters:
+      - name: userID
+        in: path
+        description: ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserIDs'
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: User
+  /user/{userID}/posts:
+    get:
+      tags:
+      - post
+      summary: Gets a user's posts
+      operationId: getUserPosts
+      parameters:
+      - name: userID
+        in: path
+        description: ID of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+                x-content-type: application/json
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Post
+  /post:
+    get:
+      tags:
+      - post
+      summary: Gets a post by ID
+      operationId: getPost
+      parameters:
+      - name: postID
+        in: query
+        description: ID of the post
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          $ref: '#/components/schemas/Post'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: Post
+    post:
+      tags:
+      - post
+      summary: Uploads a post
+      operationId: addUserPost
+      requestBody:
+        description: Add a post for the user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Post
+    delete:
+      tags:
+      - post
+      summary: Delete a post
+      operationId: deleteUserPost
+      parameters:
+      - name: postID
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: successfuly operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        "404":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundMessage'
+      x-swagger-router-controller: Post
+  /post/{postID}/react:
+    post:
+      tags:
+      - post
+      summary: Adds a reaction to a post
+      operationId: react
+      parameters:
+      - name: postID
+        in: path
+        description: ID of the post
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: The reaction to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reaction'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Post
+  /post/{postID}/comment:
+    post:
+      tags:
+      - post
+      summary: Adds a comment to a post
+      operationId: comment
+      parameters:
+      - name: postID
+        in: path
+        description: ID of the post
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: The comment to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        "400":
+          description: Resource not found
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        "401":
+          description: "User is unauthorized, you need an API key to access this resource!"
+          headers:
+            X_Wavelength_Api_Key:
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedMessage'
+      x-swagger-router-controller: Post
+components:
+  schemas:
+    UnauthorizedMessage:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          default: You are unauthorized! You need an api key to log in
+        code:
+          type: integer
+          default: 401
+    NotFoundMessage:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          default: Your requested resource is nowhere to be found! Perhaps try searching
+            something else?
+        code:
+          type: integer
+          default: 404
+    BadRequest:
+      required:
+      - code
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+          default: The request was malformed. Try modifying your input.
+        code:
+          type: integer
+          default: 400
+    Feed:
+      type: object
+      properties:
+        lastUpdated:
+          type: integer
+          format: int64
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+      example:
+        lastUpdated: 0
+        posts:
+        - postComments:
+          - authorID: 2
+            content: content
+          - authorID: 2
+            content: content
+          eventID: 5
+          postReactions:
+          - authorID: 5
+            value: laugh
+          - authorID: 5
+            value: laugh
+          postID: 1
+          eventType: rating
+          userID: 6
+        - postComments:
+          - authorID: 2
+            content: content
+          - authorID: 2
+            content: content
+          eventID: 5
+          postReactions:
+          - authorID: 5
+            value: laugh
+          - authorID: 5
+            value: laugh
+          postID: 1
+          eventType: rating
+          userID: 6
+    UserIDs:
+      type: array
+      items:
+        type: integer
+        format: int64
+    Post:
+      type: object
+      properties:
+        userID:
+          type: integer
+          format: int64
+        postID:
+          type: integer
+          format: int64
+        eventID:
+          type: integer
+          format: int64
+        eventType:
+          type: string
+          enum:
+          - rating
+          - soundbite
+          - share
+          - import
+        postReactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reaction'
+        postComments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+      example:
+        postComments:
+        - authorID: 2
+          content: content
+        - authorID: 2
+          content: content
+        eventID: 5
+        postReactions:
+        - authorID: 5
+          value: laugh
+        - authorID: 5
+          value: laugh
+        postID: 1
+        eventType: rating
+        userID: 6
+    Reaction:
+      type: object
+      properties:
+        authorID:
+          type: integer
+          format: int64
+        value:
+          type: string
+          enum:
+          - laugh
+          - cry
+          - angry
+          - love
+      example:
+        authorID: 5
+        value: laugh
+    Comment:
+      type: object
+      properties:
+        authorID:
+          type: integer
+          format: int64
+        content:
+          type: string
+      example:
+        authorID: 2
+        content: content
+    MusicEntityPack:
+      type: object
+      properties:
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+        albums:
+          type: array
+          items:
+            $ref: '#/components/schemas/Album'
+        playlists:
+          type: array
+          items:
+            $ref: '#/components/schemas/Playlist'
+        artists:
+          type: array
+          items:
+            $ref: '#/components/schemas/Artist'
+      description: Object that contains a mix of all possible music entity arrays
+      example:
+        albums:
+        - date: mm/dd/yy hh:mm:ss
+          image: ""
+          songs-ids:
+          - null
+          - null
+          artists-ids:
+          - null
+          - null
+          name: The Wall
+          genre: rap
+          entity-id: null
+        - date: mm/dd/yy hh:mm:ss
+          image: ""
+          songs-ids:
+          - null
+          - null
+          artists-ids:
+          - null
+          - null
+          name: The Wall
+          genre: rap
+          entity-id: null
+        artists:
+        - image: ""
+          albums:
+          - null
+          - null
+          name: Pink Floyd
+          entity-id: null
+        - image: ""
+          albums:
+          - null
+          - null
+          name: Pink Floyd
+          entity-id: null
+        songs:
+        - duration: 0
+          name: To agalma
+          album-id: null
+          entity-id: moneypinkfloyd102562
+        - duration: 0
+          name: To agalma
+          album-id: null
+          entity-id: moneypinkfloyd102562
+        playlists:
+        - date: null
+          songs:
+          - null
+          - null
+          name: My awesome playlist
+          creator-id: 6
+          entity-id: null
+        - date: null
+          songs:
+          - null
+          - null
+          name: My awesome playlist
+          creator-id: 6
+          entity-id: null
+    Song:
+      type: object
+      properties:
+        name:
+          type: string
+          example: To agalma
+        duration:
+          type: integer
+          format: int32
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        album-id:
+          $ref: '#/components/schemas/EntityId'
+      example:
+        duration: 0
+        name: To agalma
+        album-id: null
+        entity-id: moneypinkfloyd102562
+    Album:
+      type: object
+      properties:
+        name:
+          type: string
+          example: The Wall
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        genre:
+          $ref: '#/components/schemas/Genre'
+        songs-ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+        image:
+          type: string
+          format: byte
+        date:
+          $ref: '#/components/schemas/Date'
+        artists-ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+      example:
+        date: mm/dd/yy hh:mm:ss
+        image: ""
+        songs-ids:
+        - null
+        - null
+        artists-ids:
+        - null
+        - null
+        name: The Wall
+        genre: rap
+        entity-id: null
+    Artist:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Pink Floyd
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        albums:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+        image:
+          type: string
+          format: byte
+      example:
+        image: ""
+        albums:
+        - null
+        - null
+        name: Pink Floyd
+        entity-id: null
+    Playlist:
+      type: object
+      properties:
+        name:
+          type: string
+          example: My awesome playlist
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityId'
+        entity-id:
+          $ref: '#/components/schemas/EntityId'
+        creator-id:
+          type: integer
+          description: ID of the user who created this playlist
+          format: int64
+        date:
+          $ref: '#/components/schemas/Date'
+      example:
+        date: null
+        songs:
+        - null
+        - null
+        name: My awesome playlist
+        creator-id: 6
+        entity-id: null
+    Genre:
+      type: string
+      enum:
+      - rap
+      - rock
+      - laiko
+      - classic
+      - others
+      - trash
+    Creation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: integer
+          format: int64
+          example: 198772
+        duration:
+          type: integer
+          format: int32
+          example: 300
+        image:
+          type: string
+          format: byte
+        music-entity-pack:
+          $ref: '#/components/schemas/MusicEntityPack'
+        genre:
+          $ref: '#/components/schemas/Genre'
+      example:
+        duration: 300
+        image: ""
+        music-entity-pack:
+          albums:
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          artists:
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          songs:
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          playlists:
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+        name: 198772
+        genre: rap
+        id: 10
+    Soundbite:
+      type: object
+      properties:
+        soundBiteID:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        song:
+          $ref: '#/components/schemas/Song'
+        tStart:
+          type: integer
+          description: Starting time in seconds
+          example: 9
+        tEnd:
+          type: integer
+          description: End time in seconds
+          example: 9
+      example:
+        song:
+          duration: 0
+          name: To agalma
+          album-id: null
+          entity-id: moneypinkfloyd102562
+        tEnd: 9
+        tStart: 9
+        soundBiteID: 10
+        userID: 198772
+    Rating:
+      type: object
+      properties:
+        ratingId:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        musicEntity:
+          $ref: '#/components/schemas/MusicEntityPack'
+        rating:
+          type: integer
+          example: 9
+        text:
+          type: string
+          example: I really liked this one
+      example:
+        ratingId: 10
+        rating: 9
+        text: I really liked this one
+        userID: 198772
+        musicEntity:
+          albums:
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          artists:
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          songs:
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          playlists:
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+    Share:
+      type: object
+      properties:
+        shareID:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        musicEntity:
+          $ref: '#/components/schemas/MusicEntityPack'
+        text:
+          type: string
+          example: I really liked this one
+      example:
+        shareID: 10
+        text: I really liked this one
+        userID: 198772
+        musicEntity:
+          albums:
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          artists:
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          songs:
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          playlists:
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+    Import:
+      type: object
+      properties:
+        importID:
+          type: integer
+          format: int64
+          example: 10
+        userID:
+          type: integer
+          format: int64
+          example: 198772
+        platform:
+          $ref: '#/components/schemas/Platform'
+        creation:
+          $ref: '#/components/schemas/Creation'
+        text:
+          type: string
+          example: Enjoy my newest album
+      example:
+        importID: 10
+        text: Enjoy my newest album
+        userID: 198772
+        platform: spotify
+        creation:
+          duration: 300
+          image: ""
+          music-entity-pack:
+            albums:
+            - date: mm/dd/yy hh:mm:ss
+              image: ""
+              songs-ids:
+              - null
+              - null
+              artists-ids:
+              - null
+              - null
+              name: The Wall
+              genre: rap
+              entity-id: null
+            - date: mm/dd/yy hh:mm:ss
+              image: ""
+              songs-ids:
+              - null
+              - null
+              artists-ids:
+              - null
+              - null
+              name: The Wall
+              genre: rap
+              entity-id: null
+            artists:
+            - image: ""
+              albums:
+              - null
+              - null
+              name: Pink Floyd
+              entity-id: null
+            - image: ""
+              albums:
+              - null
+              - null
+              name: Pink Floyd
+              entity-id: null
+            songs:
+            - duration: 0
+              name: To agalma
+              album-id: null
+              entity-id: moneypinkfloyd102562
+            - duration: 0
+              name: To agalma
+              album-id: null
+              entity-id: moneypinkfloyd102562
+            playlists:
+            - date: null
+              songs:
+              - null
+              - null
+              name: My awesome playlist
+              creator-id: 6
+              entity-id: null
+            - date: null
+              songs:
+              - null
+              - null
+              name: My awesome playlist
+              creator-id: 6
+              entity-id: null
+          name: 198772
+          genre: rap
+          id: 10
+    Platform:
+      type: string
+      enum:
+      - spotify
+      - soundcloud
+      - apple-music
+    Date:
+      type: string
+      format: date-time
+      example: yyyy-mm-ddThh:mm:ssZ
+    EntityId:
+      type: string
+      description: string type id that is unique for each music entity
+      example: moneypinkfloyd102562
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        profile_picture:
+          type: string
+          format: byte
+        about_me:
+          type: string
+          example: I love rock'n roll so put another dime in the jukebox
+        service_token_pairs:
+          type: string
+      example:
+        profile_picture: ""
+        id: 0
+        about_me: I love rock'n roll so put another dime in the jukebox
+        service_token_pairs: service_token_pairs
+    OperationResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 200
+        message:
+          type: string
+          example: Successfully completed API operation
+      example:
+        code: 200
+        message: Successfully completed API operation
+    inline_response_200:
+      type: object
+      properties:
+        entity-pack:
+          $ref: '#/components/schemas/MusicEntityPack'
+        return-type:
+          type: string
+          description: The type of the entity returned.
+          enum:
+          - song
+          - album
+          - artist
+          - playlist
+      example:
+        entity-pack:
+          albums:
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          - date: mm/dd/yy hh:mm:ss
+            image: ""
+            songs-ids:
+            - null
+            - null
+            artists-ids:
+            - null
+            - null
+            name: The Wall
+            genre: rap
+            entity-id: null
+          artists:
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          - image: ""
+            albums:
+            - null
+            - null
+            name: Pink Floyd
+            entity-id: null
+          songs:
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          - duration: 0
+            name: To agalma
+            album-id: null
+            entity-id: moneypinkfloyd102562
+          playlists:
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+          - date: null
+            songs:
+            - null
+            - null
+            name: My awesome playlist
+            creator-id: 6
+            entity-id: null
+        return-type: song
+    externallink_platform_body:
+      required:
+      - code
+      type: object
+      properties:
+        auth-token:
+          type: string
+          description: The authentication toke provided by the streaming service
+    inline_response_200_1:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Linking was successful
+      example:
+        message: Linking was successful
+  responses:
+    Unauthorized:
+      description: "User is unauthorized, you need an API key to access this resource!"
+      headers:
+        X_Wavelength_Api_Key:
+          style: simple
+          explode: false
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnauthorizedMessage'
+    BadRequest:
+      description: Resource not found
+      content:
+        appplication/json:
+          schema:
+            $ref: '#/components/schemas/BadRequest'
+    NotFound:
+      description: Resource not found
+      content:
+        appplication/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundMessage'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-Wavelength-Api-Key
+      in: header
