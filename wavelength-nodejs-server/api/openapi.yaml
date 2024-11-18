@@ -260,7 +260,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       - name: ratingID
         in: query
         description: The ratingID
@@ -268,7 +268,7 @@ paths:
         style: form
         explode: true
         schema:
-          type: string
+          type: integer
       responses:
         "200":
           description: Successful operation
@@ -312,7 +312,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       requestBody:
         content:
           application/json:
@@ -354,7 +354,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       - name: shareID
         in: query
         description: The shareID
@@ -362,7 +362,7 @@ paths:
         style: form
         explode: true
         schema:
-          type: string
+          type: integer
       responses:
         "200":
           description: Successful operation
@@ -406,7 +406,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       requestBody:
         content:
           application/json:
@@ -456,7 +456,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       - name: importID
         in: query
         description: The importID
@@ -464,7 +464,7 @@ paths:
         style: form
         explode: true
         schema:
-          type: string
+          type: integer
       responses:
         "200":
           description: Successful operation
@@ -508,7 +508,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       requestBody:
         content:
           application/json:
@@ -550,7 +550,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       - name: soundbiteID
         in: query
         description: The soundbiteID
@@ -558,7 +558,7 @@ paths:
         style: form
         explode: true
         schema:
-          type: string
+          type: integer
       responses:
         "200":
           description: Successful operation
@@ -602,7 +602,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: integer
       requestBody:
         content:
           application/json:

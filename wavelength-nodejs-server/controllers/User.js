@@ -4,6 +4,9 @@ var utils = require('../utils/writer.js');
 var User = require('../service/UserService');
 
 module.exports.addUserFollower = function addUserFollower (req, res, next, userID, followerID) {
+  if(userID == 404 || followerID == 404) {
+    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+  }
   User.addUserFollower(userID, followerID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -24,6 +27,9 @@ module.exports.completeAuthentication = function completeAuthentication (req, re
 };
 
 module.exports.deleteProfile = function deleteProfile (req, res, next, userID) {
+  if(userID == 404) {
+    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+  }
   User.deleteProfile(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -64,6 +70,9 @@ module.exports.getUserFollowing = function getUserFollowing (req, res, next, use
 };
 
 module.exports.updateProfile = function updateProfile (req, res, next, userID) {
+  if(userID == 404) {
+    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+  }
   User.updateProfile(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -84,6 +93,9 @@ module.exports.userUserIDExternal_creationsPlatformGET = function userUserIDExte
 };
 
 module.exports.viewProfile = function viewProfile (req, res, next, userID) {
+  if(userID == 404) {
+    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+  }
   User.viewProfile(userID)
     .then(function (response) {
       utils.writeJson(res, response);
