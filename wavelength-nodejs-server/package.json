@@ -4,8 +4,8 @@
   "description": "This is Wavelength's API containing all endpoints regarding the app's Music Entities",
   "main": "index.js",
   "scripts": {
-	"prestart": "npm install",
-	"start": "node index.js"
+    "prestart": "npm install",
+    "start": "node index.js"
   },
   "keywords": [
     "swagger"
