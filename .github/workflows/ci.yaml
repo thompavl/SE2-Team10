@@ -26,9 +26,7 @@ jobs:
           node-version: ${{matrix.node-version}}
 
       - name: Download dependencies (at least 9000, because javascript)
-        run: |
-          cd src
-          npm install
+        run: npm install
 
       - name: Run backend tests
         if: ${{ matrix.type == 'backend' }}
