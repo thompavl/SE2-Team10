@@ -1,0 +1,40 @@
+name: project-ci
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  ci:
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [16]
+        type: ["frontend", "backend"]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+
+      - name: Download dependencies (at least 9000, because javascript)
+        run: npm install
+
+      - name: Run backend tests
+        if: ${{ matrix.type == 'backend' }}
+        run: npm run test
+
+      - name: Run frontend tests
+        if: ${{ matrix.type == 'frontend' }}
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:8080/docs'
