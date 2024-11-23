@@ -2,7 +2,7 @@
   "name": "wavelength-music-entities-openapi-3-0",
   "version": "1.0.0",
   "description": "This is Wavelength's API containing all endpoints regarding the app's Music Entities",
-  "repository": "github:/thompavl/SE2-Team10"
+  "repository": "github:/thompavl/SE2-Team10",
   "main": "index.js",
   "scripts": {
 
