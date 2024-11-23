@@ -2,19 +2,38 @@
   "name": "wavelength-music-entities-openapi-3-0",
   "version": "1.0.0",
   "description": "This is Wavelength's API containing all endpoints regarding the app's Music Entities",
+  "repository": "github:/thompavl/SE2-Team10"
   "main": "index.js",
   "scripts": {
 	"prestart": "npm install",
-	"start": "node index.js"
+	"start": "node index.js",
+	"test": "c8 ava"
+	"cypress:open": "cypress open",
+        "cypress:run": "cypress run"
+  },
+  "ava": {
+    "timeout": "1m",
+    "verbose": true
   },
   "keywords": [
     "swagger"
   ],
   "license": "Unlicense",
   "private": true,
+  "devDependencies": {
+    "ava": "^5.3.1",
+    "c8": "^10.1.2",
+    "got": "^14.4.4",
+    "nodemon": "^2.0.20",
+    "test-listen": "^1.1.0",
+    "cypress": "13.16.0"
+  },
   "dependencies": {
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
-    "oas3-tools": "^2.2.3"
+    "oas3-tools": "^2.2.3",
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
