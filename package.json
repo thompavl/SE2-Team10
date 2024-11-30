@@ -14,7 +14,10 @@
   },
   "ava": {
     "timeout": "1m",
-    "verbose": true
+    "verbose": true,
+    "files": [
+      "tests/*.test.mjs"
+    ]
   },
   "keywords": [
     "swagger"
