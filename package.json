@@ -14,9 +14,7 @@
   "ava": {
     "timeout": "1m",
     "verbose": true,
-    "files": [
-      "tests/postShare.test.mjs"
-    ]
+    "files": ["tests/*.test.mjs"]
   },
   "keywords": [
     "swagger"

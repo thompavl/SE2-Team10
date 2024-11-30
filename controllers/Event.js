@@ -3,6 +3,7 @@
 var utils = require("../utils/writer.js");
 var Event = require("../service/EventService");
 
+
 module.exports.getImport = function getImport(
   req,
   res,
@@ -123,30 +124,7 @@ module.exports.postRating = function postRating(req, res, next, body, userID) {
     });
 };
 
-const Ajv = require("ajv");
-const ajvFormats = require('ajv-formats');
-const ShareSchema = require("../schemas/Share"); // Import Share schema which includes MusicEntityPack
-const ajv = new Ajv();
-
-// Register formats, including int64
-ajvFormats(ajv);
-// Compile the Share schema once
-const validateShare = ajv.compile(ShareSchema);
 module.exports.postShare = function postShare(req, res, next, body, userID) {
-  const apiKey = req.headers['X_Wavelength_Api_Key'];
-
-  if (!apiKey) {
-    return utils.writeJson(res, utils.respondWithCode(401, {
-        message: "User is unauthorized, you need an API key to access this resource!",
-        code: 401,
-      })
-    );
-  } else if (!validateShare(body)) {
-    return utils.writeJson(res, utils.respondWithCode(400, {
-      message:"The request was malformed. Try modifying your input.",
-      code: 400,
-    }));
-  }
   Event.postShare(body, userID)
   .then(function (response) {
     utils.writeJson(res, response);
@@ -156,18 +134,12 @@ module.exports.postShare = function postShare(req, res, next, body, userID) {
   });
 };
 
-module.exports.postSoundbite = function postSoundbite(
-  req,
-  res,
-  next,
-  body,
-  userID
-) {
+module.exports.postSoundbite = function postSoundbite(req,res,next,body,userID) {
   Event.postSoundbite(body, userID)
     .then(function (response) {
       utils.writeJson(res, response);
     })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+    .catch(function (error) {
+      next(error);
     });
 };
