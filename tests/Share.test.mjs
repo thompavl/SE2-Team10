@@ -35,25 +35,9 @@ let getShareJson = [
           "date": "mm/dd/yy hh:mm:ss",
           "image": "",
           "songs-ids": [
-            null,
             null
           ],
           "artists-ids": [
-            null,
-            null
-          ],
-          "name": "The Wall",
-          "genre": "rap"
-        },
-        {
-          "date": "mm/dd/yy hh:mm:ss",
-          "image": "",
-          "songs-ids": [
-            null,
-            null
-          ],
-          "artists-ids": [
-            null,
             null
           ],
           "name": "The Wall",
@@ -64,15 +48,6 @@ let getShareJson = [
         {
           "image": "",
           "albums": [
-            null,
-            null
-          ],
-          "name": "Pink Floyd"
-        },
-        {
-          "image": "",
-          "albums": [
-            null,
             null
           ],
           "name": "Pink Floyd"
@@ -83,25 +58,11 @@ let getShareJson = [
           "duration": 0,
           "name": "To agalma",
           "entity-id": "moneypinkfloyd102562"
-        },
-        {
-          "duration": 0,
-          "name": "To agalma",
-          "entity-id": "moneypinkfloyd102562"
         }
       ],
       "playlists": [
         {
           "songs": [
-            null,
-            null
-          ],
-          "name": "My awesome playlist",
-          "creator-id": 6
-        },
-        {
-          "songs": [
-            null,
             null
           ],
           "name": "My awesome playlist",
@@ -120,25 +81,9 @@ let getShareJson = [
           "date": "mm/dd/yy hh:mm:ss",
           "image": "",
           "songs-ids": [
-            null,
             null
           ],
           "artists-ids": [
-            null,
-            null
-          ],
-          "name": "The Wall",
-          "genre": "rap"
-        },
-        {
-          "date": "mm/dd/yy hh:mm:ss",
-          "image": "",
-          "songs-ids": [
-            null,
-            null
-          ],
-          "artists-ids": [
-            null,
             null
           ],
           "name": "The Wall",
@@ -149,15 +94,6 @@ let getShareJson = [
         {
           "image": "",
           "albums": [
-            null,
-            null
-          ],
-          "name": "Pink Floyd"
-        },
-        {
-          "image": "",
-          "albums": [
-            null,
             null
           ],
           "name": "Pink Floyd"
@@ -168,25 +104,11 @@ let getShareJson = [
           "duration": 0,
           "name": "To agalma",
           "entity-id": "moneypinkfloyd102562"
-        },
-        {
-          "duration": 0,
-          "name": "To agalma",
-          "entity-id": "moneypinkfloyd102562"
         }
       ],
       "playlists": [
         {
           "songs": [
-            null,
-            null
-          ],
-          "name": "My awesome playlist",
-          "creator-id": 6
-        },
-        {
-          "songs": [
-            null,
             null
           ],
           "name": "My awesome playlist",
@@ -222,7 +144,7 @@ test('GET /share - unauthorized', async (t) => {
   test('GET /share - resource not found - invalid userID', async (t) => {
     // Passing authorization by including valid API key
     const { body, statusCode } = await t.context.got("user/404/share", {    // Changed userID to non-existent
-      searchParams: { shareID: 10 }, // Changed shareID to non-existent
+      searchParams: { shareID: 10 },
       headers: { 'X-Wavelength-Api-Key': '12345' },
       throwHttpErrors: false
     });
