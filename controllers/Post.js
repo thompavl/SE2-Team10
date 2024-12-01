@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-var utils = require("../utils/writer.js");
-var Post = require("../service/PostService");
+var utils = require('../utils/writer.js');
+var Post = require('../service/PostService');
 
-module.exports.addUserPost = function addUserPost(req, res, next, body) {
+module.exports.addUserPost = function addUserPost (req, res, next, body) {
   Post.addUserPost(body)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -13,7 +13,7 @@ module.exports.addUserPost = function addUserPost(req, res, next, body) {
     });
 };
 
-module.exports.comment = function comment(req, res, next, body, postID) {
+module.exports.comment = function comment (req, res, next, body, postID) {
   Post.comment(body, postID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -23,12 +23,7 @@ module.exports.comment = function comment(req, res, next, body, postID) {
     });
 };
 
-module.exports.deleteUserPost = function deleteUserPost(
-  req,
-  res,
-  next,
-  postID
-) {
+module.exports.deleteUserPost = function deleteUserPost (req, res, next, postID) {
   Post.deleteUserPost(postID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -38,7 +33,7 @@ module.exports.deleteUserPost = function deleteUserPost(
     });
 };
 
-module.exports.getPost = function getPost(req, res, next, postID) {
+module.exports.getPost = function getPost (req, res, next, postID) {
   if (postID == 404) {
     return utils.writeJson(
       res,
@@ -58,8 +53,8 @@ module.exports.getPost = function getPost(req, res, next, postID) {
     });
 };
 
-module.exports.getUserFeed = function getUserFeed(req, res, next, userID) {
-  if (userID == 404) {
+module.exports.getUserFeed = function getUserFeed (req, res, next, userID) {
+  if (postID == 404) {
     return utils.writeJson(
       res,
       utils.respondWithCode(404, {
@@ -78,8 +73,8 @@ module.exports.getUserFeed = function getUserFeed(req, res, next, userID) {
     });
 };
 
-module.exports.getUserPosts = function getUserPosts(req, res, next, userID) {
-  if (userID == 404) {
+module.exports.getUserPosts = function getUserPosts (req, res, next, userID) {
+  if (postID == 404) {
     return utils.writeJson(
       res,
       utils.respondWithCode(404, {
@@ -98,7 +93,7 @@ module.exports.getUserPosts = function getUserPosts(req, res, next, userID) {
     });
 };
 
-module.exports.react = function react(req, res, next, body, postID) {
+module.exports.react = function react (req, res, next, body, postID) {
   Post.react(body, postID)
     .then(function (response) {
       utils.writeJson(res, response);

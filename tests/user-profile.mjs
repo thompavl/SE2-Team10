@@ -55,17 +55,29 @@ test("PUT /user returns correct response", async (t) => {
 });
 
 test("PUT /user returns correct response on 404", async (t) => {
+	let requestBody = {
+		"profile_picture": "",
+		"id": 0,
+		"about_me": "I love rock'n roll so put another dime in the jukebox",
+		"service_token_pairs": "service_token_pairs"
+	};
 	let expectedResponse = {
 		"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?",
 		"code": 404
 	};
-	const { body, statusCode } = await t.context.got_authorized.put("user",{searchParams: {"userID": 404}, throwHttpErrors: false});
+	const { body, statusCode } = await t.context.got_authorized.put("user",{searchParams: {"userID": 404}, json: {requestBody},throwHttpErrors: false});
 	t.is(statusCode, 404);
 	t.deepEqual(body,expectedResponse);
 });
 
 test("PUT /user returns correct response on 401", async (t) => {
-	const { body, statusCode } = await t.context.got_unauthorized.put("user",{searchParams: {"userID": 4045454}, throwHttpErrors: false});
+	let requestBody = {
+		"profile_picture": "",
+		"id": 0,
+		"about_me": "I love rock'n roll so put another dime in the jukebox",
+		"service_token_pairs": "service_token_pairs"
+	};
+	const { body, statusCode } = await t.context.got_unauthorized.put("user",{searchParams: {"userID": 4045454}, json: {requestBody},throwHttpErrors: false});
 	t.is(statusCode, 401);
 });
 
