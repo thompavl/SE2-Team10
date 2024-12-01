@@ -69,11 +69,11 @@ module.exports.getUserFollowing = function getUserFollowing (req, res, next, use
     });
 };
 
-module.exports.updateProfile = function updateProfile (req, res, next, userID) {
+module.exports.updateProfile = function updateProfile (req, res, next, body, userID) {
   if(userID == 404) {
     return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
   }
-  User.updateProfile(userID)
+  User.updateProfile(body, userID)
     .then(function (response) {
       utils.writeJson(res, response);
     })

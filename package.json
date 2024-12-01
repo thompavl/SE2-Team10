@@ -14,7 +14,7 @@
   "ava": {
     "timeout": "1m",
     "verbose": true,
-    "files": ["tests/*.test.mjs"]
+    "files": ["tests/*.mjs"]
   },
   "keywords": [
     "swagger"
@@ -25,17 +25,14 @@
     "ava": "^5.3.1",
     "c8": "^10.1.2",
     "cypress": "13.16.0",
-    "got": "^14.4.5",
+    "got": "^14.4.4",
     "nodemon": "^2.0.20",
     "test-listen": "^1.1.0"
   },
   "dependencies": {
-    "ajv-formats": "^3.0.1",
     "connect": "^3.2.0",
-    "express-openapi-validator": "^5.3.9",
     "js-yaml": "^3.3.0",
-    "oas3-tools": "^2.2.3",
-    "sinon": "^19.0.2"
+    "oas3-tools": "^2.2.3"
   },
   "engines": {
     "node": ">=16"
