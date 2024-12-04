@@ -17,42 +17,23 @@ exports.getMusicEntities = function(keywords,name,date,type) {
   "albums" : [ {
     "date" : "mm/dd/yy hh:mm:ss",
     "image" : "",
-    "songs-ids" : [ null, null ],
-    "artists-ids" : [ null, null ],
-    "name" : "The Wall",
-    "genre" : "rap"
-  }, {
-    "date" : "mm/dd/yy hh:mm:ss",
-    "image" : "",
-    "songs-ids" : [ null, null ],
-    "artists-ids" : [ null, null ],
+    "songs-ids" : [ null ],
+    "artists-ids" : [ null ],
     "name" : "The Wall",
     "genre" : "rap"
   } ],
   "artists" : [ {
     "image" : "",
-    "albums" : [ null, null ],
-    "name" : "Pink Floyd"
-  }, {
-    "image" : "",
-    "albums" : [ null, null ],
+    "albums" : [ null ],
     "name" : "Pink Floyd"
   } ],
   "songs" : [ {
     "duration" : 0,
     "name" : "To agalma",
     "entity-id" : "moneypinkfloyd102562"
-  }, {
-    "duration" : 0,
-    "name" : "To agalma",
-    "entity-id" : "moneypinkfloyd102562"
   } ],
   "playlists" : [ {
-    "songs" : [ null, null ],
-    "name" : "My awesome playlist",
-    "creator-id" : 6
-  }, {
-    "songs" : [ null, null ],
+    "songs" : [ null ],
     "name" : "My awesome playlist",
     "creator-id" : 6
   } ]
@@ -80,42 +61,23 @@ exports.getMusicEntitybyId = function(id) {
     "albums" : [ {
       "date" : "mm/dd/yy hh:mm:ss",
       "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    }, {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
+      "songs-ids" : [ null ],
+      "artists-ids" : [ null ],
       "name" : "The Wall",
       "genre" : "rap"
     } ],
     "artists" : [ {
       "image" : "",
-      "albums" : [ null, null ],
-      "name" : "Pink Floyd"
-    }, {
-      "image" : "",
-      "albums" : [ null, null ],
+      "albums" : [ null ],
       "name" : "Pink Floyd"
     } ],
     "songs" : [ {
       "duration" : 0,
       "name" : "To agalma",
       "entity-id" : "moneypinkfloyd102562"
-    }, {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
     } ],
     "playlists" : [ {
-      "songs" : [ null, null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    }, {
-      "songs" : [ null, null ],
+      "songs" : [ null ],
       "name" : "My awesome playlist",
       "creator-id" : 6
     } ]
