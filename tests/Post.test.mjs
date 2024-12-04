@@ -3,7 +3,7 @@ import http from "node:http";
 import test from "ava";
 import got from "got";
 
-import app from "../index.js";
+import {serverPort,app} from "../index.js";
 
 test.before(async (t) => {
 	t.context.server = http.createServer(app);
