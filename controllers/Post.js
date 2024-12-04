@@ -54,7 +54,7 @@ module.exports.getPost = function getPost (req, res, next, postID) {
 };
 
 module.exports.getUserFeed = function getUserFeed (req, res, next, userID) {
-  if (postID == 404) {
+  if (userID == 404) {
     return utils.writeJson(
       res,
       utils.respondWithCode(404, {
@@ -74,7 +74,7 @@ module.exports.getUserFeed = function getUserFeed (req, res, next, userID) {
 };
 
 module.exports.getUserPosts = function getUserPosts (req, res, next, userID) {
-  if (postID == 404) {
+  if (userID == 404) {
     return utils.writeJson(
       res,
       utils.respondWithCode(404, {
