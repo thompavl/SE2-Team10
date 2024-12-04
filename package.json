@@ -7,7 +7,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "c8 ava",
+    "test": "c8 ava --serial",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
