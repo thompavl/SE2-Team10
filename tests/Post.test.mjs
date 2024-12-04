@@ -10,7 +10,6 @@ test.before(async (t) => {
     const server = t.context.server.listen();
     const { port } = server.address();
 	t.context.got = got.extend({ responseType: "json", prefixUrl: `http://localhost:${port}/api/v1` });
-    console.log(`http://localhost:${port}/api/v1`);
 });
 
 test.after.always((t) => {
