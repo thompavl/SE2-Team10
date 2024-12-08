@@ -32,6 +32,13 @@ describe('test PUT endpoint', () => {
     cy.get("#operations-user-updateProfile").find('input[placeholder^="userID"]').should("have.class", "invalid")
   })
 
+  it("When user tries endpoint without filling a userID, warn about invalid input", () => {
+    cy.get("#operations-user-updateProfile").click()
+    cy.get("#operations-user-updateProfile").find("button").contains("Try it out").click()
+    cy.get(".execute").click()
+    cy.get("#operations-user-updateProfile").find('input[placeholder^="userID"]').should("have.class", "invalid")
+  })
+
   it("When user fill an integer for userID and tries endpoint, execute normally", () => {
     cy.get("#operations-user-updateProfile").click()
     cy.get("#operations-user-updateProfile").find("button").contains("Try it out").click()
