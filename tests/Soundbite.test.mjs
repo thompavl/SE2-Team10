@@ -1,7 +1,7 @@
 import test from 'ava';
 import http from 'node:http';
 import got from 'got';
-import app from '../index.js';
+import {serverPort,app} from "../index.js";
 
 // Start the server and create a context with a got instance
 test.before(async (t) => {
@@ -135,3 +135,4 @@ test('POST /soundbite - success', async (t) => {
 
   t.is(statusCode, 200);
 });
+
