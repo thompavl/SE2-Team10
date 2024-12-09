@@ -180,6 +180,90 @@ t.true(Array.isArray(body));
 t.deepEqual(body, getImportJson);
 });
 
+/* 
+*********************************
+POST user/{userID}/import
+*********************************
+ */
+
+// JSON request for POST /import
+let postImportJson = {
+  "importID": 10,
+  "text": "Enjoy my newest album",
+  "userID": 198772,
+  "platform": "spotify",
+  "creation": {
+    "duration": 300,
+    "image": "",
+    "music-entity-pack": {
+      "albums": [
+        {
+          "date": "2024-12-09T12:00:00Z",
+          "image": "",
+          "songs-ids": [
+            "song123"
+          ],
+          "artists-ids": [
+            "artist456"
+          ],
+          "name": "The Wall",
+          "genre": "rap"
+        }
+      ],
+      "artists": [
+        {
+          "image": "",
+          "albums": [
+            "album789"
+          ],
+          "name": "Pink Floyd"
+        }
+      ],
+      "songs": [
+        {
+          "duration": 0,
+          "name": "To agalma",
+          "entity-id": "moneypinkfloyd102562"
+        }
+      ],
+      "playlists": [
+        {
+          "songs": [
+            "song123"
+          ],
+          "name": "My awesome playlist",
+          "creator-id": 6
+        }
+      ]
+    },
+    "name": 198772,
+    "genre": "rap",
+    "id": 10
+  }
+};
+
+test('POST /import - unauthorized', async (t) => {
+  // Missing authorization API key
+  const { body, statusCode } = await t.context.got.post("user/198772/import", {
+      json: postImportJson,
+      throwHttpErrors: false
+  });
+
+  t.is(statusCode, 401);
+  t.is(body.message, '\'X-Wavelength-Api-Key\' header required');
+});
+
+// Test for successful POST /import
+test('POST /import - success', async (t) => {
+  const { body, statusCode } = await t.context.got.post("user/198772/import", {
+      json: postImportJson,
+      headers: { 'X-Wavelength-Api-Key': '12345' },
+      throwHttpErrors: false
+  });
+  t.is(statusCode, 200);
+});
+
+
 
 
     
