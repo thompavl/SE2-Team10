@@ -61,3 +61,47 @@ test('GET /followers - invalid request', async (t) => {
     t.true(Array.isArray(body));
     t.deepEqual(body, getFollowersJson);
   });
+
+  /* 
+*********************************
+GET user/{userID}/following
+*********************************
+ */
+
+// JSON response for GET /following
+
+let getFollowingJson = [
+	0,
+	0,
+];
+
+test('GET /following - unauthorized', async (t) => {
+	// Missing authorization API key
+	  const { body, statusCode } = await t.context.got("user/198772/following", {
+	  throwHttpErrors: false
+	});
+	  t.is(statusCode, 401);
+	  t.is(body.message, '\'X-Wavelength-Api-Key\' header required');
+	});
+
+	// Test for invalid request (400 Bad Request)
+test('GET /following - invalid request', async (t) => {
+	const { body, statusCode } = await t.context.got("user/198772/following", {
+		searchParams: { invalid: 'parameter' }, // Invalid query parameter
+		headers: { 'X-Wavelength-Api-Key': '12345' },
+		throwHttpErrors: false
+	});
+	t.is(statusCode, 400);
+});
+
+// Test for successful GET /following
+test('GET /following - success', async (t) => {
+	const { body, statusCode } = await t.context.got("user/198772/following", {
+		headers: { 'X-Wavelength-Api-Key': '12345' },
+		throwHttpErrors: false
+	});
+
+	t.is(statusCode, 200);
+	t.true(Array.isArray(body));
+	t.deepEqual(body, getFollowingJson);
+});
