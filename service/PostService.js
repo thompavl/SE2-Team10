@@ -14,15 +14,9 @@ exports.addUserPost = function(body) {
   "postComments" : [ {
     "authorID" : 2,
     "content" : "content"
-  }, {
-    "authorID" : 2,
-    "content" : "content"
   } ],
   "eventID" : 5,
   "postReactions" : [ {
-    "authorID" : 5,
-    "value" : "laugh"
-  }, {
     "authorID" : 5,
     "value" : "laugh"
   } ],
@@ -53,15 +47,9 @@ exports.comment = function(body,postID) {
   "postComments" : [ {
     "authorID" : 2,
     "content" : "content"
-  }, {
-    "authorID" : 2,
-    "content" : "content"
   } ],
   "eventID" : 5,
   "postReactions" : [ {
-    "authorID" : 5,
-    "value" : "laugh"
-  }, {
     "authorID" : 5,
     "value" : "laugh"
   } ],
@@ -128,15 +116,9 @@ exports.getUserFeed = function(userID) {
     "postComments" : [ {
       "authorID" : 2,
       "content" : "content"
-    }, {
-      "authorID" : 2,
-      "content" : "content"
     } ],
     "eventID" : 5,
     "postReactions" : [ {
-      "authorID" : 5,
-      "value" : "laugh"
-    }, {
       "authorID" : 5,
       "value" : "laugh"
     } ],
@@ -147,15 +129,9 @@ exports.getUserFeed = function(userID) {
     "postComments" : [ {
       "authorID" : 2,
       "content" : "content"
-    }, {
-      "authorID" : 2,
-      "content" : "content"
     } ],
     "eventID" : 5,
     "postReactions" : [ {
-      "authorID" : 5,
-      "value" : "laugh"
-    }, {
       "authorID" : 5,
       "value" : "laugh"
     } ],
@@ -186,15 +162,9 @@ exports.getUserPosts = function(userID) {
   "postComments" : [ {
     "authorID" : 2,
     "content" : "content"
-  }, {
-    "authorID" : 2,
-    "content" : "content"
   } ],
   "eventID" : 5,
   "postReactions" : [ {
-    "authorID" : 5,
-    "value" : "laugh"
-  }, {
     "authorID" : 5,
     "value" : "laugh"
   } ],
@@ -205,15 +175,9 @@ exports.getUserPosts = function(userID) {
   "postComments" : [ {
     "authorID" : 2,
     "content" : "content"
-  }, {
-    "authorID" : 2,
-    "content" : "content"
   } ],
   "eventID" : 5,
   "postReactions" : [ {
-    "authorID" : 5,
-    "value" : "laugh"
-  }, {
     "authorID" : 5,
     "value" : "laugh"
   } ],
@@ -244,15 +208,9 @@ exports.react = function(body,postID) {
   "postComments" : [ {
     "authorID" : 2,
     "content" : "content"
-  }, {
-    "authorID" : 2,
-    "content" : "content"
   } ],
   "eventID" : 5,
   "postReactions" : [ {
-    "authorID" : 5,
-    "value" : "laugh"
-  }, {
     "authorID" : 5,
     "value" : "laugh"
   } ],

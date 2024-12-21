@@ -5,16 +5,18 @@
   "repository": "github:/thompavl/SE2-Team10",
   "main": "index.js",
   "scripts": {
-
-	"prestart": "npm install",
-	"start": "node index.js",
-	"test": "c8 ava",
-	"cypress:open": "cypress open",
-        "cypress:run": "cypress run"
+    "prestart": "npm install",
+    "start": "node index.js",
+    "test": "c8 ava --serial",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "ava": {
     "timeout": "1m",
-    "verbose": true
+    "verbose": true,
+    "files": [
+      "tests/*.mjs"
+    ]
   },
   "keywords": [
     "swagger"
@@ -24,13 +26,14 @@
   "devDependencies": {
     "ava": "^5.3.1",
     "c8": "^10.1.2",
+    "cypress": "^13.16.1",
     "got": "^14.4.4",
     "nodemon": "^2.0.20",
-    "test-listen": "^1.1.0",
-    "cypress": "13.16.0"
+    "test-listen": "^1.1.0"
   },
   "dependencies": {
     "connect": "^3.2.0",
+    "cors": "^2.8.5",
     "js-yaml": "^3.3.0",
     "oas3-tools": "^2.2.3"
   },

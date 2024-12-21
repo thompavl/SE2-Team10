@@ -12,6 +12,7 @@ info:
   version: 1.0.0
 servers:
 - url: http://localhost:8080/api/v1
+- url: https://se2-team10-rjmm.onrender.com/api/v1
 security:
 - ApiKeyAuth: []
 tags:
@@ -174,6 +175,11 @@ paths:
         schema:
           type: integer
           format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
       responses:
         "200":
           description: successful operation
@@ -1211,12 +1217,8 @@ components:
         - postComments:
           - authorID: 2
             content: content
-          - authorID: 2
-            content: content
           eventID: 5
           postReactions:
-          - authorID: 5
-            value: laugh
           - authorID: 5
             value: laugh
           postID: 1
@@ -1225,12 +1227,8 @@ components:
         - postComments:
           - authorID: 2
             content: content
-          - authorID: 2
-            content: content
           eventID: 5
           postReactions:
-          - authorID: 5
-            value: laugh
           - authorID: 5
             value: laugh
           postID: 1
@@ -1272,12 +1270,8 @@ components:
         postComments:
         - authorID: 2
           content: content
-        - authorID: 2
-          content: content
         eventID: 5
         postReactions:
-        - authorID: 5
-          value: laugh
         - authorID: 5
           value: laugh
         postID: 1
@@ -1336,61 +1330,24 @@ components:
           image: ""
           songs-ids:
           - null
-          - null
           artists-ids:
-          - null
           - null
           name: The Wall
           genre: rap
-          entity-id: null
-        - date: mm/dd/yy hh:mm:ss
-          image: ""
-          songs-ids:
-          - null
-          - null
-          artists-ids:
-          - null
-          - null
-          name: The Wall
-          genre: rap
-          entity-id: null
         artists:
         - image: ""
           albums:
           - null
-          - null
           name: Pink Floyd
-          entity-id: null
-        - image: ""
-          albums:
-          - null
-          - null
-          name: Pink Floyd
-          entity-id: null
         songs:
         - duration: 0
           name: To agalma
-          album-id: null
-          entity-id: moneypinkfloyd102562
-        - duration: 0
-          name: To agalma
-          album-id: null
           entity-id: moneypinkfloyd102562
         playlists:
-        - date: null
-          songs:
-          - null
+        - songs:
           - null
           name: My awesome playlist
           creator-id: 6
-          entity-id: null
-        - date: null
-          songs:
-          - null
-          - null
-          name: My awesome playlist
-          creator-id: 6
-          entity-id: null
     Song:
       type: object
       properties:
@@ -1407,7 +1364,6 @@ components:
       example:
         duration: 0
         name: To agalma
-        album-id: null
         entity-id: moneypinkfloyd102562
     Album:
       type: object
@@ -1437,13 +1393,10 @@ components:
         image: ""
         songs-ids:
         - null
-        - null
         artists-ids:
-        - null
         - null
         name: The Wall
         genre: rap
-        entity-id: null
     Artist:
       type: object
       properties:
@@ -1463,9 +1416,7 @@ components:
         image: ""
         albums:
         - null
-        - null
         name: Pink Floyd
-        entity-id: null
     Playlist:
       type: object
       properties:
@@ -1485,13 +1436,10 @@ components:
         date:
           $ref: '#/components/schemas/Date'
       example:
-        date: null
         songs:
-        - null
         - null
         name: My awesome playlist
         creator-id: 6
-        entity-id: null
     Genre:
       type: string
       enum:
@@ -1532,61 +1480,24 @@ components:
             image: ""
             songs-ids:
             - null
-            - null
             artists-ids:
-            - null
             - null
             name: The Wall
             genre: rap
-            entity-id: null
-          - date: mm/dd/yy hh:mm:ss
-            image: ""
-            songs-ids:
-            - null
-            - null
-            artists-ids:
-            - null
-            - null
-            name: The Wall
-            genre: rap
-            entity-id: null
           artists:
           - image: ""
             albums:
             - null
-            - null
             name: Pink Floyd
-            entity-id: null
-          - image: ""
-            albums:
-            - null
-            - null
-            name: Pink Floyd
-            entity-id: null
           songs:
           - duration: 0
             name: To agalma
-            album-id: null
-            entity-id: moneypinkfloyd102562
-          - duration: 0
-            name: To agalma
-            album-id: null
             entity-id: moneypinkfloyd102562
           playlists:
-          - date: null
-            songs:
-            - null
+          - songs:
             - null
             name: My awesome playlist
             creator-id: 6
-            entity-id: null
-          - date: null
-            songs:
-            - null
-            - null
-            name: My awesome playlist
-            creator-id: 6
-            entity-id: null
         name: 198772
         genre: rap
         id: 10
@@ -1615,7 +1526,6 @@ components:
         song:
           duration: 0
           name: To agalma
-          album-id: null
           entity-id: moneypinkfloyd102562
         tEnd: 9
         tStart: 9
@@ -1651,61 +1561,24 @@ components:
             image: ""
             songs-ids:
             - null
-            - null
             artists-ids:
-            - null
             - null
             name: The Wall
             genre: rap
-            entity-id: null
-          - date: mm/dd/yy hh:mm:ss
-            image: ""
-            songs-ids:
-            - null
-            - null
-            artists-ids:
-            - null
-            - null
-            name: The Wall
-            genre: rap
-            entity-id: null
           artists:
           - image: ""
             albums:
             - null
-            - null
             name: Pink Floyd
-            entity-id: null
-          - image: ""
-            albums:
-            - null
-            - null
-            name: Pink Floyd
-            entity-id: null
           songs:
           - duration: 0
             name: To agalma
-            album-id: null
-            entity-id: moneypinkfloyd102562
-          - duration: 0
-            name: To agalma
-            album-id: null
             entity-id: moneypinkfloyd102562
           playlists:
-          - date: null
-            songs:
-            - null
+          - songs:
             - null
             name: My awesome playlist
             creator-id: 6
-            entity-id: null
-          - date: null
-            songs:
-            - null
-            - null
-            name: My awesome playlist
-            creator-id: 6
-            entity-id: null
     Share:
       type: object
       properties:
@@ -1732,61 +1605,24 @@ components:
             image: ""
             songs-ids:
             - null
-            - null
             artists-ids:
-            - null
             - null
             name: The Wall
             genre: rap
-            entity-id: null
-          - date: mm/dd/yy hh:mm:ss
-            image: ""
-            songs-ids:
-            - null
-            - null
-            artists-ids:
-            - null
-            - null
-            name: The Wall
-            genre: rap
-            entity-id: null
           artists:
           - image: ""
             albums:
             - null
-            - null
             name: Pink Floyd
-            entity-id: null
-          - image: ""
-            albums:
-            - null
-            - null
-            name: Pink Floyd
-            entity-id: null
           songs:
           - duration: 0
             name: To agalma
-            album-id: null
-            entity-id: moneypinkfloyd102562
-          - duration: 0
-            name: To agalma
-            album-id: null
             entity-id: moneypinkfloyd102562
           playlists:
-          - date: null
-            songs:
-            - null
+          - songs:
             - null
             name: My awesome playlist
             creator-id: 6
-            entity-id: null
-          - date: null
-            songs:
-            - null
-            - null
-            name: My awesome playlist
-            creator-id: 6
-            entity-id: null
     Import:
       type: object
       properties:
@@ -1819,61 +1655,24 @@ components:
               image: ""
               songs-ids:
               - null
-              - null
               artists-ids:
-              - null
               - null
               name: The Wall
               genre: rap
-              entity-id: null
-            - date: mm/dd/yy hh:mm:ss
-              image: ""
-              songs-ids:
-              - null
-              - null
-              artists-ids:
-              - null
-              - null
-              name: The Wall
-              genre: rap
-              entity-id: null
             artists:
             - image: ""
               albums:
               - null
-              - null
               name: Pink Floyd
-              entity-id: null
-            - image: ""
-              albums:
-              - null
-              - null
-              name: Pink Floyd
-              entity-id: null
             songs:
             - duration: 0
               name: To agalma
-              album-id: null
-              entity-id: moneypinkfloyd102562
-            - duration: 0
-              name: To agalma
-              album-id: null
               entity-id: moneypinkfloyd102562
             playlists:
-            - date: null
-              songs:
-              - null
+            - songs:
               - null
               name: My awesome playlist
               creator-id: 6
-              entity-id: null
-            - date: null
-              songs:
-              - null
-              - null
-              name: My awesome playlist
-              creator-id: 6
-              entity-id: null
           name: 198772
           genre: rap
           id: 10
@@ -1886,7 +1685,6 @@ components:
     Date:
       type: string
       format: date-time
-      example: yyyy-mm-ddThh:mm:ssZ
     EntityId:
       type: string
       description: string type id that is unique for each music entity
@@ -1943,61 +1741,24 @@ components:
             image: ""
             songs-ids:
             - null
-            - null
             artists-ids:
-            - null
             - null
             name: The Wall
             genre: rap
-            entity-id: null
-          - date: mm/dd/yy hh:mm:ss
-            image: ""
-            songs-ids:
-            - null
-            - null
-            artists-ids:
-            - null
-            - null
-            name: The Wall
-            genre: rap
-            entity-id: null
           artists:
           - image: ""
             albums:
             - null
-            - null
             name: Pink Floyd
-            entity-id: null
-          - image: ""
-            albums:
-            - null
-            - null
-            name: Pink Floyd
-            entity-id: null
           songs:
           - duration: 0
             name: To agalma
-            album-id: null
-            entity-id: moneypinkfloyd102562
-          - duration: 0
-            name: To agalma
-            album-id: null
             entity-id: moneypinkfloyd102562
           playlists:
-          - date: null
-            songs:
-            - null
+          - songs:
             - null
             name: My awesome playlist
             creator-id: 6
-            entity-id: null
-          - date: null
-            songs:
-            - null
-            - null
-            name: My awesome playlist
-            creator-id: 6
-            entity-id: null
         return-type: song
     externallink_platform_body:
       required:

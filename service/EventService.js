@@ -5,8 +5,8 @@
  * Returns a collection of matching imports
  * This (GET) endpoint returns an array of imports. By default this returns a number of imports that belong to user (userID), from newest to oldest. If the optional parameter, importID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the import that matches importID.
  *
- * userID String The userID, whose import we want to access
- * importID String The importID (optional)
+ * userID Integer The userID, whose import we want to access
+ * importID Integer The importID (optional)
  * returns List
  **/
 exports.getImport = function(userID,importID) {
@@ -24,42 +24,23 @@ exports.getImport = function(userID,importID) {
       "albums" : [ {
         "date" : "mm/dd/yy hh:mm:ss",
         "image" : "",
-        "songs-ids" : [ null, null ],
-        "artists-ids" : [ null, null ],
-        "name" : "The Wall",
-        "genre" : "rap"
-      }, {
-        "date" : "mm/dd/yy hh:mm:ss",
-        "image" : "",
-        "songs-ids" : [ null, null ],
-        "artists-ids" : [ null, null ],
+        "songs-ids" : [ null ],
+        "artists-ids" : [ null ],
         "name" : "The Wall",
         "genre" : "rap"
       } ],
       "artists" : [ {
         "image" : "",
-        "albums" : [ null, null ],
-        "name" : "Pink Floyd"
-      }, {
-        "image" : "",
-        "albums" : [ null, null ],
+        "albums" : [ null ],
         "name" : "Pink Floyd"
       } ],
       "songs" : [ {
         "duration" : 0,
         "name" : "To agalma",
         "entity-id" : "moneypinkfloyd102562"
-      }, {
-        "duration" : 0,
-        "name" : "To agalma",
-        "entity-id" : "moneypinkfloyd102562"
       } ],
       "playlists" : [ {
-        "songs" : [ null, null ],
-        "name" : "My awesome playlist",
-        "creator-id" : 6
-      }, {
-        "songs" : [ null, null ],
+        "songs" : [ null ],
         "name" : "My awesome playlist",
         "creator-id" : 6
       } ]
@@ -80,42 +61,23 @@ exports.getImport = function(userID,importID) {
       "albums" : [ {
         "date" : "mm/dd/yy hh:mm:ss",
         "image" : "",
-        "songs-ids" : [ null, null ],
-        "artists-ids" : [ null, null ],
-        "name" : "The Wall",
-        "genre" : "rap"
-      }, {
-        "date" : "mm/dd/yy hh:mm:ss",
-        "image" : "",
-        "songs-ids" : [ null, null ],
-        "artists-ids" : [ null, null ],
+        "songs-ids" : [ null ],
+        "artists-ids" : [ null ],
         "name" : "The Wall",
         "genre" : "rap"
       } ],
       "artists" : [ {
         "image" : "",
-        "albums" : [ null, null ],
-        "name" : "Pink Floyd"
-      }, {
-        "image" : "",
-        "albums" : [ null, null ],
+        "albums" : [ null ],
         "name" : "Pink Floyd"
       } ],
       "songs" : [ {
         "duration" : 0,
         "name" : "To agalma",
         "entity-id" : "moneypinkfloyd102562"
-      }, {
-        "duration" : 0,
-        "name" : "To agalma",
-        "entity-id" : "moneypinkfloyd102562"
       } ],
       "playlists" : [ {
-        "songs" : [ null, null ],
-        "name" : "My awesome playlist",
-        "creator-id" : 6
-      }, {
-        "songs" : [ null, null ],
+        "songs" : [ null ],
         "name" : "My awesome playlist",
         "creator-id" : 6
       } ]
@@ -138,8 +100,8 @@ exports.getImport = function(userID,importID) {
  * Returns a collection of matching ratings
  * This (GET) endpoint returns an array of ratings. By default this returns a number of ratings that belong to user (userID), from newest to oldest. If the optional parameter, ratingID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the rating that matches ratingID.
  *
- * userID String The userID, whose rating we want to access
- * ratingID String The ratingID (optional)
+ * userID Integer The userID, whose rating we want to access
+ * ratingID Integer The ratingID (optional)
  * returns List
  **/
 exports.getRating = function(userID,ratingID) {
@@ -154,42 +116,23 @@ exports.getRating = function(userID,ratingID) {
     "albums" : [ {
       "date" : "mm/dd/yy hh:mm:ss",
       "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    }, {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
+      "songs-ids" : [ null ],
+      "artists-ids" : [ null ],
       "name" : "The Wall",
       "genre" : "rap"
     } ],
     "artists" : [ {
       "image" : "",
-      "albums" : [ null, null ],
-      "name" : "Pink Floyd"
-    }, {
-      "image" : "",
-      "albums" : [ null, null ],
+      "albums" : [ null ],
       "name" : "Pink Floyd"
     } ],
     "songs" : [ {
       "duration" : 0,
       "name" : "To agalma",
       "entity-id" : "moneypinkfloyd102562"
-    }, {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
     } ],
     "playlists" : [ {
-      "songs" : [ null, null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    }, {
-      "songs" : [ null, null ],
+      "songs" : [ null ],
       "name" : "My awesome playlist",
       "creator-id" : 6
     } ]
@@ -203,42 +146,23 @@ exports.getRating = function(userID,ratingID) {
     "albums" : [ {
       "date" : "mm/dd/yy hh:mm:ss",
       "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    }, {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
+      "songs-ids" : [ null ],
+      "artists-ids" : [ null ],
       "name" : "The Wall",
       "genre" : "rap"
     } ],
     "artists" : [ {
       "image" : "",
-      "albums" : [ null, null ],
-      "name" : "Pink Floyd"
-    }, {
-      "image" : "",
-      "albums" : [ null, null ],
+      "albums" : [ null ],
       "name" : "Pink Floyd"
     } ],
     "songs" : [ {
       "duration" : 0,
       "name" : "To agalma",
       "entity-id" : "moneypinkfloyd102562"
-    }, {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
     } ],
     "playlists" : [ {
-      "songs" : [ null, null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    }, {
-      "songs" : [ null, null ],
+      "songs" : [ null ],
       "name" : "My awesome playlist",
       "creator-id" : 6
     } ]
@@ -257,8 +181,8 @@ exports.getRating = function(userID,ratingID) {
  * Returns a collection of matching shares
  * This (GET) endpoint returns an array of shares. By default this returns a number of shares that belong to user (userID), from newest to oldest. If the optional parameter, shareID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the share that matches shareID.
  *
- * userID String The userID, whose rating we want to access
- * shareID String The shareID (optional)
+ * userID Integer The userID, whose rating we want to access
+ * shareID Integer The shareID (optional)
  * returns List
  **/
 exports.getShare = function(userID,shareID) {
@@ -272,42 +196,23 @@ exports.getShare = function(userID,shareID) {
     "albums" : [ {
       "date" : "mm/dd/yy hh:mm:ss",
       "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    }, {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
+      "songs-ids" : [ null ],
+      "artists-ids" : [ null ],
       "name" : "The Wall",
       "genre" : "rap"
     } ],
     "artists" : [ {
       "image" : "",
-      "albums" : [ null, null ],
-      "name" : "Pink Floyd"
-    }, {
-      "image" : "",
-      "albums" : [ null, null ],
+      "albums" : [ null ],
       "name" : "Pink Floyd"
     } ],
     "songs" : [ {
       "duration" : 0,
       "name" : "To agalma",
       "entity-id" : "moneypinkfloyd102562"
-    }, {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
     } ],
     "playlists" : [ {
-      "songs" : [ null, null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    }, {
-      "songs" : [ null, null ],
+      "songs" : [ null ],
       "name" : "My awesome playlist",
       "creator-id" : 6
     } ]
@@ -320,42 +225,23 @@ exports.getShare = function(userID,shareID) {
     "albums" : [ {
       "date" : "mm/dd/yy hh:mm:ss",
       "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    }, {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null, null ],
-      "artists-ids" : [ null, null ],
+      "songs-ids" : [ null ],
+      "artists-ids" : [ null ],
       "name" : "The Wall",
       "genre" : "rap"
     } ],
     "artists" : [ {
       "image" : "",
-      "albums" : [ null, null ],
-      "name" : "Pink Floyd"
-    }, {
-      "image" : "",
-      "albums" : [ null, null ],
+      "albums" : [ null ],
       "name" : "Pink Floyd"
     } ],
     "songs" : [ {
       "duration" : 0,
       "name" : "To agalma",
       "entity-id" : "moneypinkfloyd102562"
-    }, {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
     } ],
     "playlists" : [ {
-      "songs" : [ null, null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    }, {
-      "songs" : [ null, null ],
+      "songs" : [ null ],
       "name" : "My awesome playlist",
       "creator-id" : 6
     } ]
@@ -374,8 +260,8 @@ exports.getShare = function(userID,shareID) {
  * Returns a collection of matching soundbites
  * This (GET) endpoint returns an array of soundbites. By default this returns a number of soundbites that belong to user (userID), from newest to oldest. If the optional parameter, soundbiteID, is also supplied then this list gets filtered bassed on that parameter resulting in an empty list in the case of no match, or to a single-entry array containing the soundbite that matches soundbiteID.
  *
- * userID String The userID, whose soundbite we want to access
- * soundbiteID String The soundbiteID (optional)
+ * userID Integer The userID, whose soundbite we want to access
+ * soundbiteID Integer The soundbiteID (optional)
  * returns List
  **/
 exports.getSoundbite = function(userID,soundbiteID) {
@@ -416,7 +302,7 @@ exports.getSoundbite = function(userID,soundbiteID) {
  * This can only be done by the logged in user.
  *
  * body Import  (optional)
- * userID String The user name for login
+ * userID Integer The user name for login
  * no response value expected for this operation
  **/
 exports.postImport = function(body,userID) {
@@ -431,7 +317,7 @@ exports.postImport = function(body,userID) {
  * This can only be done by the logged in user.
  *
  * body Rating  (optional)
- * userID String The user name for login
+ * userID Integer The user name for login
  * no response value expected for this operation
  **/
 exports.postRating = function(body,userID) {
@@ -446,7 +332,7 @@ exports.postRating = function(body,userID) {
  * This can only be done by the logged in user.
  *
  * body List  (optional)
- * userID String The user name for login
+ * userID Integer The user name for login
  * no response value expected for this operation
  **/
 exports.postShare = function(body,userID) {
@@ -461,7 +347,7 @@ exports.postShare = function(body,userID) {
  * This can only be done by the logged in user.
  *
  * body Soundbite  (optional)
- * userID String The user name for login
+ * userID Integer The user name for login
  * no response value expected for this operation
  **/
 exports.postSoundbite = function(body,userID) {

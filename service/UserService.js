@@ -129,10 +129,11 @@ exports.getUserFollowing = function(userID) {
 /**
  * Update user
  *
+ * body User  (optional)
  * userID Long ID of user
  * returns User
  **/
-exports.updateProfile = function(userID) {
+exports.updateProfile = function(body,userID) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
