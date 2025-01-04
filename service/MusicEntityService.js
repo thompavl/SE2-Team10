@@ -10,7 +10,7 @@
  * type String  (optional)
  * returns MusicEntityPack
  **/
-exports.getMusicEntities = function(_, _, _, _) {
+exports.getMusicEntities = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
