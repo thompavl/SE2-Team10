@@ -153,6 +153,8 @@ test('GET /share - unauthorized', async (t) => {
     t.is(body.message, "Your requested resource is nowhere to be found! Perhaps try searching something else?");
   });
 
+  
+
   // Test for successful GET /share
   test('GET /share - success', async (t) => {
     const { body, statusCode } = await t.context.got("user/198772/share", {

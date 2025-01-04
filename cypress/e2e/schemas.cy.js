@@ -18,6 +18,7 @@ describe('Swagger UI Tests for schemas area', () => {
       // Clicking the title or toggle should expand/collapse the model
       cy.get('.model-title').click({ multiple: true }); // Expand model by clicking the title
       cy.get('.inner-object').should('be.visible'); // Verify expanded state
+
      // Check all fields inside `inner-object`
      cy.get('.inner-object').within(() => {
       cy.contains('td', 'name').next().should('contain.text', 'Pink Floyd');
