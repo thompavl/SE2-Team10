@@ -7,8 +7,8 @@
  * body Post Add a post for the user
  * returns Post
  **/
-exports.addUserPost = function(body) {
-  return new Promise(function(resolve, reject) {
+exports.addUserPost = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "postComments" : [ {
@@ -40,8 +40,8 @@ exports.addUserPost = function(body) {
  * postID Long ID of the post
  * returns Post
  **/
-exports.comment = function(body,postID) {
-  return new Promise(function(resolve, reject) {
+exports.comment = function(_, _) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "postComments" : [ {
@@ -72,8 +72,8 @@ exports.comment = function(body,postID) {
  * postID Long 
  * returns OperationResponse
  **/
-exports.deleteUserPost = function(postID) {
-  return new Promise(function(resolve, reject) {
+exports.deleteUserPost = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "code" : 200,
