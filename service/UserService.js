@@ -8,7 +8,7 @@
  * followerID Long The ID of the follower
  * returns OperationResponse
  **/
-exports.addUserFollower = function(_, _) {
+exports.addUserFollower = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
@@ -32,7 +32,7 @@ exports.addUserFollower = function(_, _) {
  * platform String Specific platform chosen
  * returns inline_response_200_1
  **/
-exports.completeAuthentication = function(_, _, _) {
+exports.completeAuthentication = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
@@ -133,7 +133,7 @@ exports.getUserFollowing = function(_) {
  * userID Long ID of user
  * returns User
  **/
-exports.updateProfile = function(_, _) {
+exports.updateProfile = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
@@ -158,7 +158,7 @@ exports.updateProfile = function(_, _) {
  * platform String Specific platform chosen
  * returns Song
  **/
-exports.userUserIDExternal_creationsPlatformGET = function(_, _) {
+exports.userUserIDExternal_creationsPlatformGET = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {

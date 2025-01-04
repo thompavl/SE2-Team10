@@ -9,7 +9,7 @@
  * importID Integer The importID (optional)
  * returns List
  **/
-exports.getImport = function(_, _) {
+exports.getImport = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
@@ -104,7 +104,7 @@ exports.getImport = function(_, _) {
  * ratingID Integer The ratingID (optional)
  * returns List
  **/
-exports.getRating = function(_, _) {
+exports.getRating = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
@@ -185,7 +185,7 @@ exports.getRating = function(_, _) {
  * shareID Integer The shareID (optional)
  * returns List
  **/
-exports.getShare = function(_, _) {
+exports.getShare = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
@@ -264,7 +264,7 @@ exports.getShare = function(_, _) {
  * soundbiteID Integer The soundbiteID (optional)
  * returns List
  **/
-exports.getSoundbite = function(_, _) {
+exports.getSoundbite = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
@@ -305,7 +305,7 @@ exports.getSoundbite = function(_, _) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postImport = function(_, _) {
+exports.postImport = () => {
   return new Promise(function(resolve, _) {
     resolve();
   });
@@ -320,7 +320,7 @@ exports.postImport = function(_, _) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postRating = function(_, _) {
+exports.postRating = () => {
   return new Promise(function(resolve, _) {
     resolve();
   });
@@ -335,7 +335,7 @@ exports.postRating = function(_, _) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postShare = function(_, _) {
+exports.postShare = () => {
   return new Promise(function(resolve, _) {
     resolve();
   });
@@ -350,7 +350,7 @@ exports.postShare = function(_, _) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postSoundbite = function(_, _) {
+exports.postSoundbite = () => {
   return new Promise(function(resolve, _) {
     resolve();
   });

@@ -40,7 +40,7 @@ exports.addUserPost = function(_) {
  * postID Long ID of the post
  * returns Post
  **/
-exports.comment = function(_, _) {
+exports.comment = () => {
   return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
@@ -94,8 +94,8 @@ exports.deleteUserPost = function(_) {
  * postID Long ID of the post
  * no response value expected for this operation
  **/
-exports.getPost = function(postID) {
-  return new Promise(function(resolve, reject) {
+exports.getPost = function(_) {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -107,8 +107,8 @@ exports.getPost = function(postID) {
  * userID Long User's identification number in system.
  * returns Feed
  **/
-exports.getUserFeed = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.getUserFeed = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "lastUpdated" : 0,
@@ -155,8 +155,8 @@ exports.getUserFeed = function(userID) {
  * userID Long ID of the user
  * returns List
  **/
-exports.getUserPosts = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.getUserPosts = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
   "postComments" : [ {
@@ -201,8 +201,8 @@ exports.getUserPosts = function(userID) {
  * postID Long ID of the post
  * returns Post
  **/
-exports.react = function(body,postID) {
-  return new Promise(function(resolve, reject) {
+exports.react = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "postComments" : [ {
