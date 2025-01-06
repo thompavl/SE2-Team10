@@ -4,9 +4,9 @@ var utils = require("../utils/writer.js");
 var MusicEntity = require("../service/MusicEntityService");
 
 module.exports.getMusicEntities = function getMusicEntities(
-  req,
+  _,
   res,
-  next,
+  _,
   keywords,
   name,
   date,
@@ -36,12 +36,7 @@ module.exports.getMusicEntities = function getMusicEntities(
     });
 };
 
-module.exports.getMusicEntitybyId = function getMusicEntitybyId(
-  req,
-  res,
-  next,
-  id
-) {
+module.exports.getMusicEntitybyId = function getMusicEntitybyId(_, res, _, id) {
   if (id == 404) {
     return utils.writeJson(
       res,
