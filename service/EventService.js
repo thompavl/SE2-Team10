@@ -9,8 +9,8 @@
  * importID Integer The importID (optional)
  * returns List
  **/
-exports.getImport = function(userID,importID) {
-  return new Promise(function(resolve, reject) {
+exports.getImport = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
   "importID" : 10,
@@ -104,8 +104,8 @@ exports.getImport = function(userID,importID) {
  * ratingID Integer The ratingID (optional)
  * returns List
  **/
-exports.getRating = function(userID,ratingID) {
-  return new Promise(function(resolve, reject) {
+exports.getRating = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
   "ratingId" : 10,
@@ -185,8 +185,8 @@ exports.getRating = function(userID,ratingID) {
  * shareID Integer The shareID (optional)
  * returns List
  **/
-exports.getShare = function(userID,shareID) {
-  return new Promise(function(resolve, reject) {
+exports.getShare = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
   "shareID" : 10,
@@ -264,8 +264,8 @@ exports.getShare = function(userID,shareID) {
  * soundbiteID Integer The soundbiteID (optional)
  * returns List
  **/
-exports.getSoundbite = function(userID,soundbiteID) {
-  return new Promise(function(resolve, reject) {
+exports.getSoundbite = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ {
   "song" : {
@@ -305,8 +305,8 @@ exports.getSoundbite = function(userID,soundbiteID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postImport = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postImport = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -320,8 +320,8 @@ exports.postImport = function(body,userID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postRating = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postRating = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -335,8 +335,8 @@ exports.postRating = function(body,userID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postShare = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postShare = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -350,8 +350,8 @@ exports.postShare = function(body,userID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postSoundbite = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postSoundbite = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }

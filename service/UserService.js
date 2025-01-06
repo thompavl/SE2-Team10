@@ -8,8 +8,8 @@
  * followerID Long The ID of the follower
  * returns OperationResponse
  **/
-exports.addUserFollower = function(userID,followerID) {
-  return new Promise(function(resolve, reject) {
+exports.addUserFollower = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "code" : 200,
@@ -32,8 +32,8 @@ exports.addUserFollower = function(userID,followerID) {
  * platform String Specific platform chosen
  * returns inline_response_200_1
  **/
-exports.completeAuthentication = function(body,userID,platform) {
-  return new Promise(function(resolve, reject) {
+exports.completeAuthentication = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "message" : "Linking was successful"
@@ -53,8 +53,8 @@ exports.completeAuthentication = function(body,userID,platform) {
  * userID Long 
  * returns OperationResponse
  **/
-exports.deleteProfile = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.deleteProfile = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "code" : 200,
@@ -75,8 +75,8 @@ exports.deleteProfile = function(userID) {
  * userID Long User's identification number in system.
  * returns UserIDs
  **/
-exports.getRecommended = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.getRecommended = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ 0, 0 ];
     if (Object.keys(examples).length > 0) {
@@ -94,8 +94,8 @@ exports.getRecommended = function(userID) {
  * userID Long ID of the user
  * returns UserIDs
  **/
-exports.getUserFollowers = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.getUserFollowers = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ 0, 0 ];
     if (Object.keys(examples).length > 0) {
@@ -113,8 +113,8 @@ exports.getUserFollowers = function(userID) {
  * userID Long ID of the user
  * returns UserIDs
  **/
-exports.getUserFollowing = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.getUserFollowing = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = [ 0, 0 ];
     if (Object.keys(examples).length > 0) {
@@ -133,8 +133,8 @@ exports.getUserFollowing = function(userID) {
  * userID Long ID of user
  * returns User
  **/
-exports.updateProfile = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.updateProfile = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "profile_picture" : "",
@@ -158,8 +158,8 @@ exports.updateProfile = function(body,userID) {
  * platform String Specific platform chosen
  * returns Song
  **/
-exports.userUserIDExternal_creationsPlatformGET = function(userID,platform) {
-  return new Promise(function(resolve, reject) {
+exports.userUserIDExternal_creationsPlatformGET = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "duration" : 0,
@@ -182,8 +182,8 @@ exports.userUserIDExternal_creationsPlatformGET = function(userID,platform) {
  * userID Long userID for whom the profile should be returned
  * returns User
  **/
-exports.viewProfile = function(userID) {
-  return new Promise(function(resolve, reject) {
+exports.viewProfile = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "profile_picture" : "",

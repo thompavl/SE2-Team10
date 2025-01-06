@@ -10,8 +10,8 @@
  * type String  (optional)
  * returns MusicEntityPack
  **/
-exports.getMusicEntities = function(keywords,name,date,type) {
-  return new Promise(function(resolve, reject) {
+exports.getMusicEntities = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "albums" : [ {
@@ -53,8 +53,8 @@ exports.getMusicEntities = function(keywords,name,date,type) {
  * id Long 
  * returns inline_response_200
  **/
-exports.getMusicEntitybyId = function(id) {
-  return new Promise(function(resolve, reject) {
+exports.getMusicEntitybyId = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "entity-pack" : {
