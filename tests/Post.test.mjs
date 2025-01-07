@@ -164,32 +164,7 @@ test("GET /post?postID=1 200", async (t) => {
 //###################################
 //           POST /post
 //###################################
-let postJson = {
-  "postComments": [
-    {
-      "authorID": 2,
-      "content": "content"
-    },
-    {
-      "authorID": 2,
-      "content": "content"
-    }
-  ],
-  "eventID": 5,
-  "postReactions": [
-    {
-      "authorID": 5,
-      "value": "laugh"
-    },
-    {
-      "authorID": 5,
-      "value": "laugh"
-    }
-  ],
-  "postID": 1,
-  "eventType": "rating",
-  "userID": 6
-};
+let postJson = {"postComments":[{"authorID":2,"content":"content"},{"authorID":2,"content":"content"}],"eventID":5,"postReactions":[{"authorID":5,"value":"laugh"},{"authorID":5,"value":"laugh"}],"postID":1,"eventType":"rating","userID":6};
 
 test("POST /post 401", async (t) => {
     try{
