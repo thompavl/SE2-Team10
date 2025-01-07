@@ -9,84 +9,10 @@
  * importID Integer The importID (optional)
  * returns List
  **/
-exports.getImport = function(userID,importID) {
-  return new Promise(function(resolve, reject) {
+exports.getImport = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
-    examples['application/json'] = [ {
-  "importID" : 10,
-  "text" : "Enjoy my newest album",
-  "userID" : 198772,
-  "platform" : "spotify",
-  "creation" : {
-    "duration" : 300,
-    "image" : "",
-    "music-entity-pack" : {
-      "albums" : [ {
-        "date" : "mm/dd/yy hh:mm:ss",
-        "image" : "",
-        "songs-ids" : [ null ],
-        "artists-ids" : [ null ],
-        "name" : "The Wall",
-        "genre" : "rap"
-      } ],
-      "artists" : [ {
-        "image" : "",
-        "albums" : [ null ],
-        "name" : "Pink Floyd"
-      } ],
-      "songs" : [ {
-        "duration" : 0,
-        "name" : "To agalma",
-        "entity-id" : "moneypinkfloyd102562"
-      } ],
-      "playlists" : [ {
-        "songs" : [ null ],
-        "name" : "My awesome playlist",
-        "creator-id" : 6
-      } ]
-    },
-    "name" : 198772,
-    "genre" : "rap",
-    "id" : 10
-  }
-}, {
-  "importID" : 10,
-  "text" : "Enjoy my newest album",
-  "userID" : 198772,
-  "platform" : "spotify",
-  "creation" : {
-    "duration" : 300,
-    "image" : "",
-    "music-entity-pack" : {
-      "albums" : [ {
-        "date" : "mm/dd/yy hh:mm:ss",
-        "image" : "",
-        "songs-ids" : [ null ],
-        "artists-ids" : [ null ],
-        "name" : "The Wall",
-        "genre" : "rap"
-      } ],
-      "artists" : [ {
-        "image" : "",
-        "albums" : [ null ],
-        "name" : "Pink Floyd"
-      } ],
-      "songs" : [ {
-        "duration" : 0,
-        "name" : "To agalma",
-        "entity-id" : "moneypinkfloyd102562"
-      } ],
-      "playlists" : [ {
-        "songs" : [ null ],
-        "name" : "My awesome playlist",
-        "creator-id" : 6
-      } ]
-    },
-    "name" : 198772,
-    "genre" : "rap",
-    "id" : 10
-  }
-} ];
+    examples['application/json'] = [{"importID":10,"text":"Enjoy my newest album","userID":198772,"platform":"spotify","creation":{"duration":300,"image":"","music-entity-pack":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]},"name":198772,"genre":"rap","id":10}},{"importID":10,"text":"Enjoy my newest album","userID":198772,"platform":"spotify","creation":{"duration":300,"image":"","music-entity-pack":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]},"name":198772,"genre":"rap","id":10}}];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -94,7 +20,6 @@ exports.getImport = function(userID,importID) {
     }
   });
 }
-
 
 /**
  * Returns a collection of matching ratings
@@ -104,70 +29,10 @@ exports.getImport = function(userID,importID) {
  * ratingID Integer The ratingID (optional)
  * returns List
  **/
-exports.getRating = function(userID,ratingID) {
-  return new Promise(function(resolve, reject) {
+exports.getRating = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
-    examples['application/json'] = [ {
-  "ratingId" : 10,
-  "rating" : 9,
-  "text" : "I really liked this one",
-  "userID" : 198772,
-  "musicEntity" : {
-    "albums" : [ {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null ],
-      "artists-ids" : [ null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    } ],
-    "artists" : [ {
-      "image" : "",
-      "albums" : [ null ],
-      "name" : "Pink Floyd"
-    } ],
-    "songs" : [ {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
-    } ],
-    "playlists" : [ {
-      "songs" : [ null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    } ]
-  }
-}, {
-  "ratingId" : 10,
-  "rating" : 9,
-  "text" : "I really liked this one",
-  "userID" : 198772,
-  "musicEntity" : {
-    "albums" : [ {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null ],
-      "artists-ids" : [ null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    } ],
-    "artists" : [ {
-      "image" : "",
-      "albums" : [ null ],
-      "name" : "Pink Floyd"
-    } ],
-    "songs" : [ {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
-    } ],
-    "playlists" : [ {
-      "songs" : [ null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    } ]
-  }
-} ];
+    examples['application/json'] = [{"ratingId":10,"rating":9,"text":"I really liked this one","userID":198772,"musicEntity":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]}},{"ratingId":10,"rating":9,"text":"I really liked this one","userID":198772,"musicEntity":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]}}];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -185,68 +50,10 @@ exports.getRating = function(userID,ratingID) {
  * shareID Integer The shareID (optional)
  * returns List
  **/
-exports.getShare = function(userID,shareID) {
-  return new Promise(function(resolve, reject) {
+exports.getShare = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
-    examples['application/json'] = [ {
-  "shareID" : 10,
-  "text" : "I really liked this one",
-  "userID" : 198772,
-  "musicEntity" : {
-    "albums" : [ {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null ],
-      "artists-ids" : [ null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    } ],
-    "artists" : [ {
-      "image" : "",
-      "albums" : [ null ],
-      "name" : "Pink Floyd"
-    } ],
-    "songs" : [ {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
-    } ],
-    "playlists" : [ {
-      "songs" : [ null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    } ]
-  }
-}, {
-  "shareID" : 10,
-  "text" : "I really liked this one",
-  "userID" : 198772,
-  "musicEntity" : {
-    "albums" : [ {
-      "date" : "mm/dd/yy hh:mm:ss",
-      "image" : "",
-      "songs-ids" : [ null ],
-      "artists-ids" : [ null ],
-      "name" : "The Wall",
-      "genre" : "rap"
-    } ],
-    "artists" : [ {
-      "image" : "",
-      "albums" : [ null ],
-      "name" : "Pink Floyd"
-    } ],
-    "songs" : [ {
-      "duration" : 0,
-      "name" : "To agalma",
-      "entity-id" : "moneypinkfloyd102562"
-    } ],
-    "playlists" : [ {
-      "songs" : [ null ],
-      "name" : "My awesome playlist",
-      "creator-id" : 6
-    } ]
-  }
-} ];
+    examples['application/json'] = [{"shareID":10,"text":"I really liked this one","userID":198772,"musicEntity":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]}},{"shareID":10,"text":"I really liked this one","userID":198772,"musicEntity":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]}}];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -264,30 +71,10 @@ exports.getShare = function(userID,shareID) {
  * soundbiteID Integer The soundbiteID (optional)
  * returns List
  **/
-exports.getSoundbite = function(userID,soundbiteID) {
-  return new Promise(function(resolve, reject) {
+exports.getSoundbite = () => {
+  return new Promise(function(resolve, _) {
     var examples = {};
-    examples['application/json'] = [ {
-  "song" : {
-    "duration" : 0,
-    "name" : "To agalma",
-    "entity-id" : "moneypinkfloyd102562"
-  },
-  "tEnd" : 9,
-  "tStart" : 9,
-  "soundBiteID" : 10,
-  "userID" : 198772
-}, {
-  "song" : {
-    "duration" : 0,
-    "name" : "To agalma",
-    "entity-id" : "moneypinkfloyd102562"
-  },
-  "tEnd" : 9,
-  "tStart" : 9,
-  "soundBiteID" : 10,
-  "userID" : 198772
-} ];
+    examples['application/json'] = [{"song":{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"},"tEnd":9,"tStart":9,"soundBiteID":10,"userID":198772},{"song":{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"},"tEnd":9,"tStart":9,"soundBiteID":10,"userID":198772}];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -305,8 +92,8 @@ exports.getSoundbite = function(userID,soundbiteID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postImport = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postImport = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -320,8 +107,8 @@ exports.postImport = function(body,userID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postRating = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postRating = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -335,8 +122,8 @@ exports.postRating = function(body,userID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postShare = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postShare = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -350,8 +137,8 @@ exports.postShare = function(body,userID) {
  * userID Integer The user name for login
  * no response value expected for this operation
  **/
-exports.postSoundbite = function(body,userID) {
-  return new Promise(function(resolve, reject) {
+exports.postSoundbite = () => {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }

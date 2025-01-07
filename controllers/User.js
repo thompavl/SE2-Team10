@@ -1,11 +1,18 @@
-'use strict';
+"use strict";
 
-var utils = require('../utils/writer.js');
-var User = require('../service/UserService');
+var utils = require("../utils/writer.js");
+var User = require("../service/UserService");
 
-module.exports.addUserFollower = function addUserFollower (req, res, next, userID, followerID) {
-  if(userID == 404 || followerID == 404) {
-    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+module.exports.addUserFollower = (__, res, _, userID, followerID) => {
+  if (userID == 404 || followerID == 404) {
+    return utils.writeJson(
+      res,
+      utils.respondWithCode(404, {
+        message:
+          "Your requested resource is nowhere to be found! Perhaps try searching something else?",
+        code: 404,
+      })
+    );
   }
   User.addUserFollower(userID, followerID)
     .then(function (response) {
@@ -16,7 +23,14 @@ module.exports.addUserFollower = function addUserFollower (req, res, next, userI
     });
 };
 
-module.exports.completeAuthentication = function completeAuthentication (req, res, next, body, userID, platform) {
+module.exports.completeAuthentication = (
+  __,
+  res,
+  _,
+  body,
+  userID,
+  platform
+) => {
   User.completeAuthentication(body, userID, platform)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -26,9 +40,16 @@ module.exports.completeAuthentication = function completeAuthentication (req, re
     });
 };
 
-module.exports.deleteProfile = function deleteProfile (req, res, next, userID) {
-  if(userID == 404) {
-    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+module.exports.deleteProfile = (__, res, _, userID) => {
+  if (userID == 404) {
+    return utils.writeJson(
+      res,
+      utils.respondWithCode(404, {
+        message:
+          "Your requested resource is nowhere to be found! Perhaps try searching something else?",
+        code: 404,
+      })
+    );
   }
   User.deleteProfile(userID)
     .then(function (response) {
@@ -39,7 +60,7 @@ module.exports.deleteProfile = function deleteProfile (req, res, next, userID) {
     });
 };
 
-module.exports.getRecommended = function getRecommended (req, res, next, userID) {
+module.exports.getRecommended = (__, res, _, userID) => {
   User.getRecommended(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -49,7 +70,7 @@ module.exports.getRecommended = function getRecommended (req, res, next, userID)
     });
 };
 
-module.exports.getUserFollowers = function getUserFollowers (req, res, next, userID) {
+module.exports.getUserFollowers = (__, res, _, userID) => {
   User.getUserFollowers(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -59,7 +80,7 @@ module.exports.getUserFollowers = function getUserFollowers (req, res, next, use
     });
 };
 
-module.exports.getUserFollowing = function getUserFollowing (req, res, next, userID) {
+module.exports.getUserFollowing = (__, res, _, userID) => {
   User.getUserFollowing(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -69,9 +90,16 @@ module.exports.getUserFollowing = function getUserFollowing (req, res, next, use
     });
 };
 
-module.exports.updateProfile = function updateProfile (req, res, next, body, userID) {
-  if(userID == 404) {
-    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+module.exports.updateProfile = (__, res, _, body, userID) => {
+  if (userID == 404) {
+    return utils.writeJson(
+      res,
+      utils.respondWithCode(404, {
+        message:
+          "Your requested resource is nowhere to be found! Perhaps try searching something else?",
+        code: 404,
+      })
+    );
   }
   User.updateProfile(body, userID)
     .then(function (response) {
@@ -82,7 +110,13 @@ module.exports.updateProfile = function updateProfile (req, res, next, body, use
     });
 };
 
-module.exports.userUserIDExternal_creationsPlatformGET = function userUserIDExternal_creationsPlatformGET (req, res, next, userID, platform) {
+module.exports.userUserIDExternal_creationsPlatformGET = (
+  __,
+  res,
+  _,
+  userID,
+  platform
+) => {
   User.userUserIDExternal_creationsPlatformGET(userID, platform)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -92,9 +126,16 @@ module.exports.userUserIDExternal_creationsPlatformGET = function userUserIDExte
     });
 };
 
-module.exports.viewProfile = function viewProfile (req, res, next, userID) {
-  if(userID == 404) {
-    return utils.writeJson(res, utils.respondWithCode(404, {"message": "Your requested resource is nowhere to be found! Perhaps try searching something else?","code": 404}));
+module.exports.viewProfile = (__, res, _, userID) => {
+  if (userID == 404) {
+    return utils.writeJson(
+      res,
+      utils.respondWithCode(404, {
+        message:
+          "Your requested resource is nowhere to be found! Perhaps try searching something else?",
+        code: 404,
+      })
+    );
   }
   User.viewProfile(userID)
     .then(function (response) {
