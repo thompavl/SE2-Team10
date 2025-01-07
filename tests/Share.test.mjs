@@ -24,7 +24,100 @@ GET user/{userID}/share
  */
 
 // JSON response for GET /share
-let getShareJson = [{"shareID":10,"text":"I really liked this one","userID":198772,"musicEntity":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]}},{"shareID":10,"text":"I really liked this one","userID":198772,"musicEntity":{"albums":[{"date":"mm/dd/yy hh:mm:ss","image":"","songs-ids":[null],"artists-ids":[null],"name":"The Wall","genre":"rap"}],"artists":[{"image":"","albums":[null],"name":"Pink Floyd"}],"songs":[{"duration":0,"name":"To agalma","entity-id":"moneypinkfloyd102562"}],"playlists":[{"songs":[null],"name":"My awesome playlist","creator-id":6}]}}];
+let getShareJson = [
+  {
+    "shareID": 10,
+    "text": "I really liked this one",
+    "userID": 198772,
+    "musicEntity": {
+      "albums": [
+        {
+          "date": "mm/dd/yy hh:mm:ss",
+          "image": "",
+          "songs-ids": [
+            null
+          ],
+          "artists-ids": [
+            null
+          ],
+          "name": "The Wall",
+          "genre": "rap"
+        }
+      ],
+      "artists": [
+        {
+          "image": "",
+          "albums": [
+            null
+          ],
+          "name": "Pink Floyd"
+        }
+      ],
+      "songs": [
+        {
+          "duration": 0,
+          "name": "To agalma",
+          "entity-id": "moneypinkfloyd102562"
+        }
+      ],
+      "playlists": [
+        {
+          "songs": [
+            null
+          ],
+          "name": "My awesome playlist",
+          "creator-id": 6
+        }
+      ]
+    }
+  },
+  {
+    "shareID": 10,
+    "text": "I really liked this one",
+    "userID": 198772,
+    "musicEntity": {
+      "albums": [
+        {
+          "date": "mm/dd/yy hh:mm:ss",
+          "image": "",
+          "songs-ids": [
+            null
+          ],
+          "artists-ids": [
+            null
+          ],
+          "name": "The Wall",
+          "genre": "rap"
+        }
+      ],
+      "artists": [
+        {
+          "image": "",
+          "albums": [
+            null
+          ],
+          "name": "Pink Floyd"
+        }
+      ],
+      "songs": [
+        {
+          "duration": 0,
+          "name": "To agalma",
+          "entity-id": "moneypinkfloyd102562"
+        }
+      ],
+      "playlists": [
+        {
+          "songs": [
+            null
+          ],
+          "name": "My awesome playlist",
+          "creator-id": 6
+        }
+      ]
+    }
+  }
+];
 
 test('GET /share - unauthorized', async (t) => {
 // Missing authorization API key
@@ -83,7 +176,32 @@ POST user/{userID}/share
  */
 
 // JSON request for POST /share
-let postShareJson = [{"shareID":10,"userID":198772,"text":"I really liked this one","musicEntity":{"songs":[{"entityId":"moneypinkfloyd102562"}],"albums":[{"entityId":"moneypinkfloyd102562"}],"playlists":[{"name":"My awesome playlist","songs":["moneypinkfloyd102562"],"entityId":"moneypinkfloyd102562","creatorId":6,"date":"2024-11-27T00:00:00Z"}],"artists":[{"name":"Pink Floyd","image":"","albums":["moneypinkfloyd102562"],"entityId":"moneypinkfloyd102562"}]}}];
+let postShareJson = [{
+    shareID: 10,
+    userID: 198772,
+    text: "I really liked this one",
+    musicEntity: {
+        songs: [{ 
+            entityId: "moneypinkfloyd102562" 
+        }],
+        albums: [{ 
+            entityId: "moneypinkfloyd102562" 
+        }],
+        playlists: [{
+            name: "My awesome playlist",
+            songs: ["moneypinkfloyd102562"],
+            entityId: "moneypinkfloyd102562",
+            creatorId: 6,
+            date: "2024-11-27T00:00:00Z"
+        }],
+        artists: [{
+            name: "Pink Floyd",
+            image: "",
+            albums: ["moneypinkfloyd102562"],
+            entityId: "moneypinkfloyd102562"
+        }]
+    }
+}];
 
 test('POST /share - unauthorized', async (t) => {
     // Missing authorization API key
