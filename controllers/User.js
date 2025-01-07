@@ -3,13 +3,7 @@
 var utils = require("../utils/writer.js");
 var User = require("../service/UserService");
 
-module.exports.addUserFollower = function addUserFollower(
-  _,
-  res,
-  _,
-  userID,
-  followerID
-) {
+module.exports.addUserFollower = (__, res, _, userID, followerID) => {
   if (userID == 404 || followerID == 404) {
     return utils.writeJson(
       res,
@@ -29,14 +23,14 @@ module.exports.addUserFollower = function addUserFollower(
     });
 };
 
-module.exports.completeAuthentication = function completeAuthentication(
-  _,
+module.exports.completeAuthentication = (
+  __,
   res,
   _,
   body,
   userID,
   platform
-) {
+) => {
   User.completeAuthentication(body, userID, platform)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -46,7 +40,7 @@ module.exports.completeAuthentication = function completeAuthentication(
     });
 };
 
-module.exports.deleteProfile = function deleteProfile(_, res, _, userID) {
+module.exports.deleteProfile = (__, res, _, userID) => {
   if (userID == 404) {
     return utils.writeJson(
       res,
@@ -66,7 +60,7 @@ module.exports.deleteProfile = function deleteProfile(_, res, _, userID) {
     });
 };
 
-module.exports.getRecommended = function getRecommended(_, res, _, userID) {
+module.exports.getRecommended = (__, res, _, userID) => {
   User.getRecommended(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -76,7 +70,7 @@ module.exports.getRecommended = function getRecommended(_, res, _, userID) {
     });
 };
 
-module.exports.getUserFollowers = function getUserFollowers(_, res, _, userID) {
+module.exports.getUserFollowers = (__, res, _, userID) => {
   User.getUserFollowers(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -86,7 +80,7 @@ module.exports.getUserFollowers = function getUserFollowers(_, res, _, userID) {
     });
 };
 
-module.exports.getUserFollowing = function getUserFollowing(_, res, _, userID) {
+module.exports.getUserFollowing = (__, res, _, userID) => {
   User.getUserFollowing(userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -96,7 +90,7 @@ module.exports.getUserFollowing = function getUserFollowing(_, res, _, userID) {
     });
 };
 
-module.exports.updateProfile = function updateProfile(_, res, _, body, userID) {
+module.exports.updateProfile = (__, res, _, body, userID) => {
   if (userID == 404) {
     return utils.writeJson(
       res,
@@ -116,24 +110,23 @@ module.exports.updateProfile = function updateProfile(_, res, _, body, userID) {
     });
 };
 
-module.exports.userUserIDExternal_creationsPlatformGET =
-  function userUserIDExternal_creationsPlatformGET(
-    _,
-    res,
-    _,
-    userID,
-    platform
-  ) {
-    User.userUserIDExternal_creationsPlatformGET(userID, platform)
-      .then(function (response) {
-        utils.writeJson(res, response);
-      })
-      .catch(function (response) {
-        utils.writeJson(res, response);
-      });
-  };
+module.exports.userUserIDExternal_creationsPlatformGET = (
+  __,
+  res,
+  _,
+  userID,
+  platform
+) => {
+  User.userUserIDExternal_creationsPlatformGET(userID, platform)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
 
-module.exports.viewProfile = function viewProfile(_, res, _, userID) {
+module.exports.viewProfile = (__, res, _, userID) => {
   if (userID == 404) {
     return utils.writeJson(
       res,

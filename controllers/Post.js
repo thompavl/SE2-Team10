@@ -3,7 +3,7 @@
 var utils = require("../utils/writer.js");
 var Post = require("../service/PostService");
 
-module.exports.addUserPost = function addUserPost(req, res, next, body) {
+module.exports.addUserPost = (__, res, _, body) => {
   Post.addUserPost(body)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -13,7 +13,7 @@ module.exports.addUserPost = function addUserPost(req, res, next, body) {
     });
 };
 
-module.exports.comment = function comment(_, res, _, body, postID) {
+module.exports.comment = (__, res, _, body, postID) => {
   Post.comment(body, postID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -23,7 +23,7 @@ module.exports.comment = function comment(_, res, _, body, postID) {
     });
 };
 
-module.exports.deleteUserPost = function deleteUserPost(_, res, _, postID) {
+module.exports.deleteUserPost = (__, res, _, postID) => {
   Post.deleteUserPost(postID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -33,7 +33,7 @@ module.exports.deleteUserPost = function deleteUserPost(_, res, _, postID) {
     });
 };
 
-module.exports.getPost = function getPost(_, res, _, postID) {
+module.exports.getPost = (__, res, _, postID) => {
   if (postID == 404) {
     return utils.writeJson(
       res,
@@ -53,7 +53,7 @@ module.exports.getPost = function getPost(_, res, _, postID) {
     });
 };
 
-module.exports.getUserFeed = function getUserFeed(_, res, _, userID) {
+module.exports.getUserFeed = (__, res, _, userID) => {
   if (userID == 404) {
     return utils.writeJson(
       res,
@@ -73,7 +73,7 @@ module.exports.getUserFeed = function getUserFeed(_, res, _, userID) {
     });
 };
 
-module.exports.getUserPosts = function getUserPosts(_, res, _, userID) {
+module.exports.getUserPosts = (__, res, _, userID) => {
   if (userID == 404) {
     return utils.writeJson(
       res,
@@ -93,7 +93,7 @@ module.exports.getUserPosts = function getUserPosts(_, res, _, userID) {
     });
 };
 
-module.exports.react = function react(_, res, _, body, postID) {
+module.exports.react = (__, res, _, body, postID) => {
   Post.react(body, postID)
     .then(function (response) {
       utils.writeJson(res, response);
