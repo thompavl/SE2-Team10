@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-var utils = require("../utils/writer.js");
-var Event = require("../service/EventService");
+var utils = require('../utils/writer.js');
+var Event = require('../service/EventService');
 
-module.exports.getImport = (__, res, _, userID, importID) => {
+module.exports.getImport = function getImport (req, res, next, userID, importID) {
   if (userID == 404 || importID == 404) {
     return utils.writeJson(
       res,
@@ -23,7 +23,7 @@ module.exports.getImport = (__, res, _, userID, importID) => {
     });
 };
 
-module.exports.getRating = (__, res, _, userID, ratingID) => {
+module.exports.getRating = function getRating (req, res, next, userID, ratingID) {
   if (userID == 404 || ratingID == 404) {
     return utils.writeJson(
       res,
@@ -43,7 +43,7 @@ module.exports.getRating = (__, res, _, userID, ratingID) => {
     });
 };
 
-module.exports.getShare = (__, res, _, userID, shareID) => {
+module.exports.getShare = function getShare (req, res, next, userID, shareID) {
   if (userID == 404 || shareID == 404) {
     return utils.writeJson(
       res,
@@ -63,7 +63,7 @@ module.exports.getShare = (__, res, _, userID, shareID) => {
     });
 };
 
-module.exports.getSoundbite = (__, res, _, userID, soundbiteID) => {
+module.exports.getSoundbite = function getSoundbite (req, res, next, userID, soundbiteID) {
   if (userID == 404 || soundbiteID == 404) {
     return utils.writeJson(
       res,
@@ -83,7 +83,7 @@ module.exports.getSoundbite = (__, res, _, userID, soundbiteID) => {
     });
 };
 
-module.exports.postImport = (__, res, _, body, userID) => {
+module.exports.postImport = function postImport (req, res, next, body, userID) {
   Event.postImport(body, userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -93,7 +93,7 @@ module.exports.postImport = (__, res, _, body, userID) => {
     });
 };
 
-module.exports.postRating = (__, res, _, body, userID) => {
+module.exports.postRating = function postRating (req, res, next, body, userID) {
   Event.postRating(body, userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -103,7 +103,7 @@ module.exports.postRating = (__, res, _, body, userID) => {
     });
 };
 
-module.exports.postShare = (__, res, _, body, userID) => {
+module.exports.postShare = function postShare (req, res, next, body, userID) {
   Event.postShare(body, userID)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -113,7 +113,7 @@ module.exports.postShare = (__, res, _, body, userID) => {
     });
 };
 
-module.exports.postSoundbite = (__, res, _, body, userID) => {
+module.exports.postSoundbite = function postSoundbite (req, res, next, body, userID) {
   Event.postSoundbite(body, userID)
     .then(function (response) {
       utils.writeJson(res, response);

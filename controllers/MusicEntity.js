@@ -3,7 +3,15 @@
 var utils = require("../utils/writer.js");
 var MusicEntity = require("../service/MusicEntityService");
 
-module.exports.getMusicEntities = (__, res, _, keywords, name, date, type) => {
+module.exports.getMusicEntities = function getMusicEntities(
+  req,
+  res,
+  next,
+  keywords,
+  name,
+  date,
+  type
+) {
   if (
     keywords === "404" ||
     name === "404" ||
@@ -28,7 +36,12 @@ module.exports.getMusicEntities = (__, res, _, keywords, name, date, type) => {
     });
 };
 
-module.exports.getMusicEntitybyId = (__, res, _, id) => {
+module.exports.getMusicEntitybyId = function getMusicEntitybyId(
+  req,
+  res,
+  next,
+  id
+) {
   if (id == 404) {
     return utils.writeJson(
       res,
